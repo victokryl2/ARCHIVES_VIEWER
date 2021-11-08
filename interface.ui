@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>965</width>
+    <height>581</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -56,7 +56,7 @@
           <property name="minimumSize">
            <size>
             <width>0</width>
-            <height>30</height>
+            <height>20</height>
            </size>
           </property>
           <property name="styleSheet">
@@ -80,8 +80,19 @@
             <layout class="QVBoxLayout" name="verticalLayout_2">
              <item>
               <widget class="QLabel" name="label">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(138, 191, 255);</string>
+               </property>
                <property name="text">
-                <string>TextLabel</string>
+                <string>СПИСОК АРХИВОВ</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
                </property>
               </widget>
              </item>
@@ -95,8 +106,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>181</width>
-                  <height>405</height>
+                  <width>222</width>
+                  <height>386</height>
                  </rect>
                 </property>
                </widget>
@@ -104,8 +115,16 @@
              </item>
              <item>
               <widget class="QPushButton" name="pushButton">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(138, 191, 255);</string>
+               </property>
                <property name="text">
-                <string>PushButton</string>
+                <string>Обновить</string>
                </property>
               </widget>
              </item>
@@ -115,8 +134,19 @@
             <layout class="QVBoxLayout" name="verticalLayout_3">
              <item>
               <widget class="QLabel" name="label_2">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(138, 191, 255);</string>
+               </property>
                <property name="text">
-                <string>TextLabel</string>
+                <string>АКТИВН.АРХИВЫ</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
                </property>
               </widget>
              </item>
@@ -130,8 +160,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>181</width>
-                  <height>434</height>
+                  <width>223</width>
+                  <height>419</height>
                  </rect>
                 </property>
                </widget>
@@ -143,8 +173,19 @@
             <layout class="QVBoxLayout" name="verticalLayout_4">
              <item>
               <widget class="QLabel" name="label_3">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(138, 191, 255);</string>
+               </property>
                <property name="text">
-                <string>TextLabel</string>
+                <string>ПАРАМЕТРЫ АРХИВА</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
                </property>
               </widget>
              </item>
@@ -158,8 +199,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>181</width>
-                  <height>434</height>
+                  <width>222</width>
+                  <height>419</height>
                  </rect>
                 </property>
                </widget>
@@ -171,8 +212,19 @@
             <layout class="QVBoxLayout" name="verticalLayout_5">
              <item>
               <widget class="QLabel" name="label_4">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(138, 191, 255);</string>
+               </property>
                <property name="text">
-                <string>TextLabel</string>
+                <string>АКТИВН.ПАРАМ-РЫ</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
                </property>
               </widget>
              </item>
@@ -186,8 +238,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>181</width>
-                  <height>434</height>
+                  <width>222</width>
+                  <height>419</height>
                  </rect>
                 </property>
                </widget>
@@ -224,7 +276,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>965</width>
      <height>21</height>
     </rect>
    </property>
