@@ -3,13 +3,14 @@ from PyQt5 import QtGui
 from PyQt5 import QtCore
 import os
 
-import f_b  # это окно файл-браузера
+import f_br
 
 
-class FileBrowser(QtWidgets.QMainWindow, f_b.Ui_MainWindow):
+class FileBrowser(QtWidgets.QMainWindow, f_br.Ui_MainWindow):
     def __init__(self, *args, **kwargs):
         super(FileBrowser, self).__init__(*args, **kwargs)
-        self.setupUi(self)  # загружаем наш f_b.py
+        self.setupUi(self)  # загружаем наш f_br.py
+        self.setWindowTitle("Выбор файла для анализа")
 
         # последующие 2-е строки инициализируют (или разрешают) показывать
         # контектное меню по правой кнопке мыши

@@ -2,16 +2,11 @@ import sys
 from PyQt5 import QtWidgets
 
 import mainwindow
-import filebrowser
 
 def main():
     app = QtWidgets.QApplication(sys.argv)  # Новый экземпляр QApplication
     window = mainwindow.MainWindow()        # Создаём объект класса ExampleApp
     window.show()                           # показываем окно
-
-    fb = filebrowser.FileBrowser()        # Создаём объект класса ExampleApp
-    fb.show()                               # показываем окно
-
     app.exec_()                             # запускаем приложение
     
 

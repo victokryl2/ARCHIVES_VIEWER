@@ -1,10 +1,11 @@
 
+from PyQt5 import QtWidgets
 import matplotlib
 matplotlib.use('Qt5Agg')
-from PyQt5 import QtWidgets
+
 
 import interface
-
+import filebrowser
 
 
 
@@ -14,6 +15,13 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         super(MainWindow, self).__init__(*args, **kwargs)
         self.setupUi(self)  # загружаем наш interface.py
         self.setWindowTitle("Просмоторщик архивов данных")
+
+        # коннекты УКВ1
+        self.pushButton.clicked.connect(self.on_button)
+
+    def on_button(self):
+        self.fb = filebrowser.FileBrowser() # объект файл-браузера
+        self.fb.show()
 
 
 
