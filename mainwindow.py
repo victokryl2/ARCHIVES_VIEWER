@@ -7,12 +7,15 @@ import interface
 
 
 
+
 # Класс главного окна со своим конструктором
 class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
         self.setupUi(self)  # загружаем наш interface.py
         self.setWindowTitle("Просмоторщик архивов данных")
+
+
 
         # # создаём экземпляр класса Data
         # self.data = data.Data(self)
