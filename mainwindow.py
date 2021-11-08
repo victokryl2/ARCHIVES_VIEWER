@@ -16,13 +16,12 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.setupUi(self)  # загружаем наш interface.py
         self.setWindowTitle("Просмоторщик архивов данных")
 
-        # коннекты УКВ1
+        # коннект на нажатие кнопки Обновить
         self.pushButton.clicked.connect(self.on_button)
 
     def on_button(self):
-        self.fb = filebrowser.FileBrowser() # объект файл-браузера
+        self.fb = filebrowser.FileBrowser(self) # объект файл-браузера
         self.fb.show()
-
 
 
         # # создаём экземпляр класса Data

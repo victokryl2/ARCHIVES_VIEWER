@@ -1,16 +1,17 @@
 from PyQt5 import QtWidgets
 from PyQt5 import QtGui
 from PyQt5 import QtCore
-import os
+from PyQt5 import Qt
 
 import f_br
 
 
 class FileBrowser(QtWidgets.QMainWindow, f_br.Ui_MainWindow):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, mainwind, *args, **kwargs):
         super(FileBrowser, self).__init__(*args, **kwargs)
         self.setupUi(self)  # загружаем наш f_br.py
         self.setWindowTitle("Выбор файла для анализа")
+        self.mainwind = mainwind
 
         # последующие 2-е строки инициализируют (или разрешают) показывать
         # контектное меню по правой кнопке мыши
@@ -48,8 +49,31 @@ class FileBrowser(QtWidgets.QMainWindow, f_br.Ui_MainWindow):
 
     # метод действия по клику по пункту меню "Open"
     def open_file(self):
-        index = self.treeView.currentIndex()    # получаем индекс объекта, с которым производить действие
-        file_path = self.model.filePath(index)  # получаем по этому индексу путь к объекту
-        os.startfile(file_path)
+
+        # 1) добавляем виджет в список архивов rgb(138, 191, 255)
+        # self.dummy_widget = QtWidgets.QWidget()
+        # self.dummy_widget.setFixedSize(40, 20)
+        # self.dummy_widget.setStyleSheet("background-color: rgb(138, 191, 255)")
+        
+        # self.mainwind.scrollArea.setWidget(self.dummy_widget)
+
+
+        # 1,5) сворачиваем файл-браузер
+        self.mainwind.fb.close()
+
+        # 2) читаем файл в pandas.frame
+
+        # 3) проверяем и подготавливаем данные
+
+        # 4) выбираем сколько графиков будем строить
+
+        # 5) строим графики и легенду на вкладке Графики
+
+
+
+        # # нижеследующие 3 строчки открывают файл для просмотра
+        # index = self.treeView.currentIndex()    # получаем индекс объекта, с которым производить действие
+        # file_path = self.model.filePath(index)  # получаем по этому индексу путь к объекту
+        # os.startfile(file_path)
 
 
