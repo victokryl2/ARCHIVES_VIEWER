@@ -9,8 +9,6 @@ class Data():
         self.filebrowser = filebrowser
 
         self.data = pd.DataFrame()          # создаём пустую dataframe
-        self.column_list = [4, 10]          # список колонок, по которым графики строить
-
         self.data = self.csv_reading()      # читаем данные из csv в dataframe
         
 

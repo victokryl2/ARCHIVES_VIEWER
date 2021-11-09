@@ -18,19 +18,25 @@ class MplCanvas(FigureCanvas):
         super(MplCanvas, self).__init__(fig)    # создание объекта холста
 
 class Graphic(QWidget):
-    def __init__(self, datasource, parent=None):# конструктор класса Grafic
+    def __init__(self, mainwindow, datasource, parent=None):# конструктор класса Grafic
         QWidget.__init__(self, parent=parent)   # конструктор родительского класса
 
+        self.mainwind = mainwindow
         self.data = datasource.data
         print('from Graphic', self.data.head(3))
-    #     self.n = self.mainwindow.data.n # кол-во графиков из объекта data
-    #     self.colors_list = []           # список для хранения кодов цветов линий легенды
+        self.column_list = [4, 10]      # список колонок, по которым графики строить
+        self.colors_list = []           # список для хранения кодов цветов линий легенды
+        
 
-    #     # Создание объекта графика как объекта пользовательского класса MplCanvas
-    #     self.main_graph = MplCanvas()
-    #     for i in range(self.n):
-    #         self.main_graph.axes.plot(self.mainwindow.data.x, self.mainwindow.data.y[i], label = 'dummy_text')
-    #     self.main_graph.axes.grid()
+        # Создание объекта графика как объекта пользовательского класса MplCanvas
+        self.main_graph = MplCanvas()
+        self.col_names = self.data.columns.tolist()
+        for i in self.column_list:
+            self.y = self.data[self.col_names[i]]
+            x = list(range(len(self.y)))
+            self.main_graph.axes.plot(x, self.y, label = 'dummy_text')
+
+        # self.main_graph.axes.grid()
 
     #     #############  ПОЛУЧЕНИЕ СПИСКА ЦВЕТОВ ЛЕГЕНДЫ В ФОРМАТЕ RGB ##################################
     #     # Этот список будет использоваться для построения пользовательской легенды в модуле legend.py
@@ -45,16 +51,16 @@ class Graphic(QWidget):
     #     self.legend.set_visible(False) # делаем легенду невидимой
     #     ################################################################################################
 
-    #     # создание объекта панели навигации на холсте self.main_graph
-    #     self.toolbar = NavigationToolbar(self.main_graph, self)
-    #     # Cоздание вертикального контейнера VB-Layout и помещение туда панели навигации и фигуры.
-    #     # Порядок важен. Если сначала добавить main_graph, то панель навигации окажется внизу.
-    #     self.layout = QtWidgets.QVBoxLayout()
-    #     self.layout.addWidget(self.toolbar)
-    #     self.layout.addWidget(self.main_graph)
+        # создание объекта панели навигации на холсте self.main_graph
+        self.toolbar = NavigationToolbar(self.main_graph, self)
+        # Cоздание вертикального контейнера VB-Layout и помещение туда панели навигации и фигуры.
+        # Порядок важен. Если сначала добавить main_graph, то панель навигации окажется внизу.
+        self.layout = QtWidgets.QVBoxLayout()
+        self.layout.addWidget(self.toolbar)
+        self.layout.addWidget(self.main_graph)
         
-    #     # установка контейнера Layout в нужный виджет
-    #     self.mainwindow.widget.setLayout(self.layout)
+        # установка контейнера Layout в нужный виджет
+        self.mainwind.widget_3.setLayout(self.layout)
 
     # def hex_to_rgb(self, hex):
     #     rgb = []

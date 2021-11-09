@@ -23,7 +23,6 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.fb = filebrowser.FileBrowser(self) # объект файл-браузера
         self.fb.show()
 
-
         # # создаём экземпляр класса Data
         # self.data = data.Data(self)
 
