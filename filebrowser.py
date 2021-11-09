@@ -1,11 +1,14 @@
 from PyQt5 import QtWidgets
 from PyQt5 import QtGui
 from PyQt5 import QtCore
-from PyQt5 import Qt
+from PyQt5.QtCore import Qt
 
 import f_br
 
-
+# @brief  Класс создания файлового браузера.
+# @detail Этот файловый браузер нужен для выбора папки с интересующим архивом.
+# @param  None
+# @retval None 
 class FileBrowser(QtWidgets.QMainWindow, f_br.Ui_MainWindow):
     def __init__(self, mainwind, *args, **kwargs):
         super(FileBrowser, self).__init__(*args, **kwargs)
@@ -49,14 +52,14 @@ class FileBrowser(QtWidgets.QMainWindow, f_br.Ui_MainWindow):
 
     # метод действия по клику по пункту меню "Open"
     def open_file(self):
+        # # нижеследующие 3 строчки открывают файл для просмотра (НЕ УДАЛЯТЬ! ЭТО ПОЛЕЗНО!)
+        # index = self.treeView.currentIndex()    # получаем индекс объекта, с которым производить действие
+        # file_path = self.model.filePath(index)  # получаем по этому индексу путь к объекту
+        # os.startfile(file_path)
 
-        # 1) добавляем виджет в список архивов rgb(138, 191, 255)
-        # self.dummy_widget = QtWidgets.QWidget()
-        # self.dummy_widget.setFixedSize(40, 20)
-        # self.dummy_widget.setStyleSheet("background-color: rgb(138, 191, 255)")
-        
-        # self.mainwind.scrollArea.setWidget(self.dummy_widget)
-
+        # добавляем виджет с именем открытого архива в поле Список архивов
+        self.hl = HL()
+        self.mainwind.verticalLayout_8.addWidget(self.hl)
 
         # 1,5) сворачиваем файл-браузер
         self.mainwind.fb.close()
@@ -71,9 +74,32 @@ class FileBrowser(QtWidgets.QMainWindow, f_br.Ui_MainWindow):
 
 
 
-        # # нижеследующие 3 строчки открывают файл для просмотра
-        # index = self.treeView.currentIndex()    # получаем индекс объекта, с которым производить действие
-        # file_path = self.model.filePath(index)  # получаем по этому индексу путь к объекту
-        # os.startfile(file_path)
+# @brief  Класс создания кастомизированных объектов "выбранный архив" для вкладки Список архивов.
+# @detail Создаёт виджет, содержащий H-контейнер, который используется для размещения лейбла 
+# с названием архива по центру. Справа и слева от лейбла добавляются вспомогательные виджеты,
+# которые и центрируют лейбл визуально по центру раздела.
+# @param  None
+# @retval None       
+class HL(QtWidgets.QWidget):
+    def __init__(self):
+        super().__init__()
+
+        self.label = QtWidgets.QLabel('ВАГОН №5')
+        self.label.setFixedSize(100, 100)
+        self.label.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+        self.label.setStyleSheet("background-color: rgb(138, 191, 255)")
+
+        self.widget1 = QtWidgets.QWidget()
+        self.widget2 = QtWidgets.QWidget()
+
+        self.hlay = QtWidgets.QHBoxLayout(self)
+
+        self.hlay.addWidget(self.widget1)
+        self.hlay.addWidget(self.label)
+        self.hlay.addWidget(self.widget2)
+
+
+
+
 
 
