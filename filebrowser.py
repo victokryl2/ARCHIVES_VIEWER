@@ -4,6 +4,8 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
 
 import f_br
+import data
+import graphic
 
 # @brief  Класс создания файлового браузера.
 # @detail Этот файловый браузер нужен для выбора папки с интересующим архивом.
@@ -65,12 +67,10 @@ class FileBrowser(QtWidgets.QMainWindow, f_br.Ui_MainWindow):
         self.mainwind.fb.close()
 
         # 3) читаем файл в pandas.frame
+        self.data = data.Data(self)                 # создаём объект класса Data
 
-        # 4) проверяем и подготавливаем данные
-
-        # 5) выбираем сколько графиков будем строить
-
-        # 6) строим графики и легенду на вкладке Графики    
+        # 4) строим графики и легенду на вкладке Графики
+        self.graphic = graphic.Graphic(self.data)    # создаём объект класса Graphic
 
 
 
