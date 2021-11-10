@@ -23,7 +23,6 @@ class Graphic(QWidget):
 
         self.mainwind = mainwindow
         self.data = datasource.data
-        print('from Graphic', self.data.head(3))
         self.column_list = [4, 10]      # список колонок, по которым графики строить
         self.colors_list = []           # список для хранения кодов цветов линий легенды
         
@@ -36,20 +35,20 @@ class Graphic(QWidget):
             x = list(range(len(self.y)))
             self.main_graph.axes.plot(x, self.y, label = 'dummy_text')
 
-        # self.main_graph.axes.grid()
+        self.main_graph.axes.grid()
 
-    #     #############  ПОЛУЧЕНИЕ СПИСКА ЦВЕТОВ ЛЕГЕНДЫ В ФОРМАТЕ RGB ##################################
-    #     # Этот список будет использоваться для построения пользовательской легенды в модуле legend.py
-    #     self.legend = self.main_graph.axes.legend()    # создаём объект легенды
-    #     self.lines = self.legend.get_lines()   # получаем объекты линий легенды (массив объектов)
-    #     for i in range(len(self.lines)):
-    #         hex = self.lines[i].get_color()    # получаем цветовой код линии в формате #2ca02c
-    #         hex = hex.replace('#', '')         # убираем знак #
-    #         # метод hex_to_rgb() преобразует шестизначный hex в список rgb из 3-х чисел int,
-    #         # а метод append добавляет этот элементарный список в полный список кодов rgb
-    #         self.colors_list.append(self.hex_to_rgb(hex))
-    #     self.legend.set_visible(False) # делаем легенду невидимой
-    #     ################################################################################################
+        #############  ПОЛУЧЕНИЕ СПИСКА ЦВЕТОВ ЛЕГЕНДЫ В ФОРМАТЕ RGB ##################################
+        # Этот список будет использоваться для построения пользовательской легенды в модуле legend.py
+        self.legend = self.main_graph.axes.legend()    # создаём объект легенды
+        self.lines = self.legend.get_lines()   # получаем объекты линий легенды (массив объектов)
+        for i in range(len(self.lines)):
+            hex = self.lines[i].get_color()    # получаем цветовой код линии в формате #2ca02c
+            hex = hex.replace('#', '')         # убираем знак #
+            # метод hex_to_rgb() преобразует шестизначный hex в список rgb из 3-х чисел int,
+            # а метод append добавляет этот элементарный список в полный список кодов rgb
+            self.colors_list.append(self.hex_to_rgb(hex))
+        # self.legend.set_visible(False) # делаем легенду невидимой
+        ################################################################################################
 
         # создание объекта панели навигации на холсте self.main_graph
         self.toolbar = NavigationToolbar(self.main_graph, self)
@@ -62,9 +61,9 @@ class Graphic(QWidget):
         # установка контейнера Layout в нужный виджет
         self.mainwind.widget_3.setLayout(self.layout)
 
-    # def hex_to_rgb(self, hex):
-    #     rgb = []
-    #     for i in (0, 2, 4):
-    #         decimal = int(hex[i:i+2], 16)
-    #         rgb.append(decimal)
-    #     return rgb
+    def hex_to_rgb(self, hex):
+        rgb = []
+        for i in (0, 2, 4):
+            decimal = int(hex[i:i+2], 16)
+            rgb.append(decimal)
+        return rgb

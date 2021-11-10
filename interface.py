@@ -163,6 +163,9 @@ class Ui_MainWindow(object):
         self.widget_3.setStyleSheet("")
         self.widget_3.setObjectName("widget_3")
         self.verticalLayout_9.addWidget(self.widget_3)
+        self.widget_4 = QtWidgets.QWidget(self.tab_3)
+        self.widget_4.setObjectName("widget_4")
+        self.verticalLayout_9.addWidget(self.widget_4)
         self.tabWidget.addTab(self.tab_3, "")
         self.tab_4 = QtWidgets.QWidget()
         self.tab_4.setObjectName("tab_4")
@@ -178,7 +181,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):

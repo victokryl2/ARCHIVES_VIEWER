@@ -23,7 +23,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -290,6 +290,9 @@
            <string notr="true"/>
           </property>
          </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="widget_4" native="true"/>
         </item>
        </layout>
       </widget>
