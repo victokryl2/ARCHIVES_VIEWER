@@ -23,9 +23,8 @@ class Graphic(QWidget):
 
         self.mainwind = mainwindow
         self.data = datasource.data
-        self.column_list = [4, 10]      # список колонок, по которым графики строить
+        self.column_list = [4, 6, 8, 12, 15]      # список колонок, по которым графики строить
         self.colors_list = []           # список для хранения кодов цветов линий легенды
-        
 
         # Создание объекта графика как объекта пользовательского класса MplCanvas
         self.main_graph = MplCanvas()

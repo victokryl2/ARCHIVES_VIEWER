@@ -1,5 +1,7 @@
 
+from PyQt5 import QtGui
 from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
 from PyQt5.QtGui import QPainter, QColor, QPen
 from PyQt5.QtCore import Qt
 import random
@@ -10,7 +12,7 @@ class Lines(QWidget):
         QWidget.__init__(self, parent=parent)   # конструктор родительского класса
 
         self.rgb = rgb                          # элемент из списка цветов (кортеж из 3-х)
-        self.line_y_coord = 7                   # координата "y" линий
+        self.line_y_coord = 11                   # координата "y" линий
         
     def paintEvent(self, e):                    # переопределяем метод paintEvent
         self.qp = QPainter()
@@ -30,7 +32,11 @@ class Legend(QWidget):
         self.mainwind = mainwindow
         self.graphic = graphic
         self.lines_list = []               # список для хранения объектов линий
+        self.graph_names = []
 
+        # получаем список объектов Qlabel с текстом названий актуальных графиков
+        self.graph_names = self.get_lines_names()
+        
         # создаём массив объектов класса линий Lines()
         # во время итерации каждый раз передаём туда очередной
         # цвет из списка цветов из модуля grafic
@@ -43,23 +49,19 @@ class Legend(QWidget):
         self.grid.setColumnStretch(2, 1)        # растяжение второго столбца с коэффициентом 1
         self.grid.setColumnStretch(3, 10)       # растяжение третьего столбца с коэффициентом 10
 
-#########################################################################################################################
+        ###############################################################################################
         # формируем рандомный список объектов чисел курсора
         self.vals_list = []
         for i in range(len(self.lines_list)):
-            self.vals_list.append(QLabel())
+            label = QLabel()
+            label.setFont(QtGui.QFont('Arial', 12))
+            self.vals_list.append(label)
             val = random.uniform(-10, 10)
             val = round(val, 2)
             self.vals_list[i].setNum(val)
             self.vals_list[i].setAlignment(Qt.AlignCenter)
 
-        # формируем рандомный список легенды (названия графиков)
-        self.graph_names = []
-        for i in range(len(self.lines_list)):
-            self.graph_names.append(QLabel())
-            self.graph_names[i].setText('название графика авыпаврпаравпавыпапипмс № ' + str(i))
-
-##########################################################################################################################
+        ###############################################################################################
 
         # добавляем туда новые объекты
         for i in range(len(self.lines_list)):
@@ -70,4 +72,47 @@ class Legend(QWidget):
         # Установка V-контейнера на виджет.
         # Внимание! Есть механизм регулирования высоты виджета от кол-ва строк легенды.
         # Это переопределяемый метод, находящийся в mainwindow.py.
-        self.mainwind.widget_6.setLayout(self.grid)       
+        self.mainwind.widget_6.setLayout(self.grid)
+
+        self.w_edjustment()     
+
+
+    #################################################################################################
+    ####### МЕТОДЫ ##################################################################################
+    #################################################################################################
+
+    # @brief  Метод регулировки высоты легенды
+    # @detail Была проблема - прималом кол-ве строк легенды они плохо отбражались 
+    # на виджете. Этот метод позволяет избежать этой проблемы сразу привязывая 
+    # высоту виджета к размеру окна и кол-ву строк.
+    # @param  None
+    # @retval None
+    def w_edjustment(self):
+        maxheight = self.mainwind.w_height/3            # задали максимальную высоту виджета относительно mainwindow
+        # регулируем высоту виджета 2 согласно количеству графиков
+        n = len(self.lines_list)
+        minh = n * 20
+        if (minh < 30):
+            minh = 30
+        if (minh > maxheight):
+            minh = maxheight
+        if (n == 2):
+            minh = 50    
+        self.mainwind.widget_6.setMinimumHeight(minh)
+
+    # @brief  Метод получения списка названий линий легенды, соответствующего отображаемым графикам.
+    # @detail Сначала из dataframe получается список наименований всех колонок,
+    # потом оттуда выбираются нужные. Далее в итератора создаются объекты QLabel и туда записываются названия графиков.
+    # Из объектов QLabel составляется список. Метод возвращает список объектов QLabel с нужным текстом в них.
+    # @param  None
+    # @retval None
+    def get_lines_names(self):
+        # Создание списка названий колонок (будущие названия графиков в легенде)
+        actual_names = []    # список актуальных названий линий легенды
+        names_list_all = self.graphic.data.columns.tolist() # список всех названий
+        for i in self.graphic.column_list:
+            label = QLabel()
+            label.setFont(QtGui.QFont('Arial', 12))
+            label.setText(names_list_all[i])
+            actual_names.append(label)
+        return actual_names
