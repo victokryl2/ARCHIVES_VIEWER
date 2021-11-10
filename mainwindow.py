@@ -23,33 +23,24 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.fb = filebrowser.FileBrowser(self) # объект файл-браузера
         self.fb.show()
 
-        # # создаём экземпляр класса Data
-        # self.data = data.Data(self)
+    ####### ПЕРЕОПРЕДЕЛЯЕМЫЕ МЕТОДЫ ###################################
+    ###################################################################
 
-        # # создаём экземпляр класса Graphic
-        # self.graphic = graphic.Graphic(self)
-
-        # # создаём экземпляр класса Legend
-        # self.legend = legend.Legend(self)
-
-
-    ######## ПЕРЕОПРЕДЕЛЯЕМЫЕ МЕТОДЫ ###################################
-    ####################################################################
-
-    # # переопределим метод событий mainwindow с целью определения его размеров
-    # # и регулирования высоты виджета с легендой
-    # def resizeEvent(self, event):         
-    #     wheight = self.size().height()   # определили высоту mainwindow
-    #     maxheight = wheight/3            # задали максимальную высоту виджета относительно mainwindow
-    #     # регулируем высоту виджета 2 согласно количеству графиков
-    #     minh = self.data.n * 20
-    #     if (minh < 30):
-    #         minh = 30
-    #     if (minh > maxheight):
-    #         minh = maxheight
-    #     if (self.data.n == 2):
-    #         minh = 50    
-    #     self.widget_2.setMinimumHeight(minh)
+    # переопределим метод событий mainwindow с целью определения его размеров
+    # и регулирования высоты виджета с легендой
+    def resizeEvent(self, event):         
+        wheight = self.size().height()   # определили высоту mainwindow
+        maxheight = wheight/3            # задали максимальную высоту виджета относительно mainwindow
+        # регулируем высоту виджета 2 согласно количеству графиков
+        self.n = 2
+        minh = self.n * 20
+        if (minh < 30):
+            minh = 30
+        if (minh > maxheight):
+            minh = maxheight
+        if (self.n == 2):
+            minh = 50    
+        self.widget_6.setMinimumHeight(minh)
 
         
         

@@ -1,6 +1,4 @@
 from PyQt5.QtWidgets import *
-from PyQt5.QtCore import Qt
-import numpy as np
 import pandas as pd
 
 
@@ -10,6 +8,8 @@ class Data():
 
         self.data = pd.DataFrame()          # создаём пустую dataframe
         self.data = self.csv_reading()      # читаем данные из csv в dataframe
+
+
         
 
 

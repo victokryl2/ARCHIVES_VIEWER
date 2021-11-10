@@ -6,6 +6,7 @@ from PyQt5.QtCore import Qt
 import f_br
 import data
 import graphic
+import legend
 
 # @brief  Класс создания файлового браузера.
 # @detail Этот файловый браузер нужен для выбора папки с интересующим архивом.
@@ -17,6 +18,7 @@ class FileBrowser(QtWidgets.QMainWindow, f_br.Ui_MainWindow):
         self.setupUi(self)  # загружаем наш f_br.py
         self.setWindowTitle("Выбор файла для анализа")
         self.mainwind = mainwind
+        self.n = 2
 
         # последующие 2-е строки инициализируют (или разрешают) показывать
         # контектное меню по правой кнопке мыши
@@ -71,6 +73,9 @@ class FileBrowser(QtWidgets.QMainWindow, f_br.Ui_MainWindow):
 
         # 4) строим графики и легенду на вкладке Графики
         self.graphic = graphic.Graphic(self.mainwind, self.data)    # создаём объект класса Graphic
+
+        # 5) строим легенду
+        self.legend = legend.Legend(self.mainwind, self.graphic)
         
 
 

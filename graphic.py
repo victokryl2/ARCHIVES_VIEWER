@@ -47,7 +47,7 @@ class Graphic(QWidget):
             # метод hex_to_rgb() преобразует шестизначный hex в список rgb из 3-х чисел int,
             # а метод append добавляет этот элементарный список в полный список кодов rgb
             self.colors_list.append(self.hex_to_rgb(hex))
-        # self.legend.set_visible(False) # делаем легенду невидимой
+        self.legend.set_visible(False) # делаем легенду невидимой
         ################################################################################################
 
         # создание объекта панели навигации на холсте self.main_graph
