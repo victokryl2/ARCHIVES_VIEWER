@@ -1,5 +1,5 @@
-import matplotlib
-matplotlib.use('Qt5Agg')
+import matplotlib.pyplot as plt
+# plt.use('Qt5Agg')
 
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QWidget
@@ -13,9 +13,12 @@ from matplotlib.backends.backend_qt5 import NavigationToolbar2QT as NavigationTo
 # Позже график можно создавать просто создав объект этого класса.
 class MplCanvas(FigureCanvas):
     def __init__(self):
-        fig = Figure()                          # создание объекта Figure
-        self.axes = fig.add_subplot()           # создание самого графика
-        super(MplCanvas, self).__init__(fig)    # создание объекта холста
+        self.fig = Figure()                          # создание объекта Figure
+        # регулируем границы зоны subplot (максимально растягиваем график на виджете)
+        self.fig.subplots_adjust(left=0.04, right=0.99, top=0.99, bottom=0.1)
+        self.axes = self.fig.add_subplot()           # создание самого графика
+        super(MplCanvas, self).__init__(self.fig)    # создание объекта холста
+        
 
 class Graphic(QWidget):
     def __init__(self, mainwindow, datasource, parent=None):# конструктор класса Grafic
@@ -33,8 +36,9 @@ class Graphic(QWidget):
             self.y = self.data[self.col_names[i]]
             x = list(range(len(self.y)))
             self.main_graph.axes.plot(x, self.y, label = 'dummy_text')
-
-        self.main_graph.axes.grid()
+        # чтобы графики начинались от оси х
+        self.main_graph.axes.set_xlim(xmin = x[0], xmax = x[(len(self.y) -1)])
+        self.main_graph.axes.grid() # включаем сетку
 
         #############  ПОЛУЧЕНИЕ СПИСКА ЦВЕТОВ ЛЕГЕНДЫ В ФОРМАТЕ RGB ##################################
         # Этот список будет использоваться для построения пользовательской легенды в модуле legend.py
