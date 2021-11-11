@@ -1,16 +1,24 @@
 from PyQt5 import QtWidgets
 from PyQt5 import QtGui
 from PyQt5 import QtCore
-import os
+from PyQt5.QtCore import Qt
 
 import f_br
+import data
+import graphic
+import legend
 
-
+# @brief  Класс создания файлового браузера.
+# @detail Этот файловый браузер нужен для выбора папки с интересующим архивом.
+# @param  None
+# @retval None 
 class FileBrowser(QtWidgets.QMainWindow, f_br.Ui_MainWindow):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, mainwind, *args, **kwargs):
         super(FileBrowser, self).__init__(*args, **kwargs)
         self.setupUi(self)  # загружаем наш f_br.py
         self.setWindowTitle("Выбор файла для анализа")
+        self.mainwind = mainwind
+        self.n = 2
 
         # последующие 2-е строки инициализируют (или разрешают) показывать
         # контектное меню по правой кнопке мыши
@@ -48,8 +56,55 @@ class FileBrowser(QtWidgets.QMainWindow, f_br.Ui_MainWindow):
 
     # метод действия по клику по пункту меню "Open"
     def open_file(self):
-        index = self.treeView.currentIndex()    # получаем индекс объекта, с которым производить действие
-        file_path = self.model.filePath(index)  # получаем по этому индексу путь к объекту
-        os.startfile(file_path)
+        # # нижеследующие 3 строчки открывают файл для просмотра (НЕ УДАЛЯТЬ! ЭТО ПОЛЕЗНО!)
+        # index = self.treeView.currentIndex()    # получаем индекс объекта, с которым производить действие
+        # file_path = self.model.filePath(index)  # получаем по этому индексу путь к объекту
+        # os.startfile(file_path)
+
+        # 1) добавляем виджет с именем открытого архива в поле Список архивов
+        self.hl = HL()
+        self.mainwind.verticalLayout_8.addWidget(self.hl)
+
+        # 2) сворачиваем файл-браузер
+        self.mainwind.fb.close()
+
+        # 3) читаем файл в pandas.frame
+        self.data = data.Data(self)                 # создаём объект класса Data
+
+        # 4) строим графики и легенду на вкладке Графики
+        self.graphic = graphic.Graphic(self.mainwind, self.data)    # создаём объект класса Graphic
+
+        # 5) строим легенду
+        self.legend = legend.Legend(self.mainwind, self.graphic)
+        
+
+
+# @brief  Класс создания кастомизированных объектов "выбранный архив" для вкладки Список архивов.
+# @detail Создаёт виджет, содержащий H-контейнер, который используется для размещения лейбла 
+# с названием архива по центру. Справа и слева от лейбла добавляются вспомогательные виджеты,
+# которые и центрируют лейбл визуально по центру раздела.
+# @param  None
+# @retval None       
+class HL(QtWidgets.QWidget):
+    def __init__(self):
+        super().__init__()
+
+        self.label = QtWidgets.QLabel('ВАГОН №5')
+        self.label.setFixedSize(100, 100)
+        self.label.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+        self.label.setStyleSheet("background-color: rgb(138, 191, 255)")
+
+        self.widget1 = QtWidgets.QWidget()
+        self.widget2 = QtWidgets.QWidget()
+
+        self.hlay = QtWidgets.QHBoxLayout(self)
+
+        self.hlay.addWidget(self.widget1)
+        self.hlay.addWidget(self.label)
+        self.hlay.addWidget(self.widget2)
+
+
+
+
 
 
