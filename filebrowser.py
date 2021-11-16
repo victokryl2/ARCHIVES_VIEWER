@@ -145,7 +145,7 @@ class HL(QtWidgets.QWidget):
         self.hlay.addWidget(self.widget2)
 
 # @brief  Класс создания объектов label с ф-ией Drags&Drop
-# @detail При помощи этого класса создаются labelds в классе class HL(QtWidgets.QWidget)
+# @detail При помощи этого класса создаются labels в классе class HL(QtWidgets.QWidget)
 # @param  None
 # @retval None       
 class DragsLabel(QtWidgets.QLabel):

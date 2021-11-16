@@ -104,6 +104,14 @@ class SubWidget(QWidget):
         self.button.setStyleSheet("background-color: rgb(138, 191, 255)")
         self.button.setText(e.mimeData().text())
         self.mainwind.lay_1.addWidget(self.button)
+
+        # коннект на нажатие кнопки Обновить
+        self.button.clicked.connect(self.on_button)
+
+    def on_button(self):
+        print('sdfgfxdsfg')
+
+
         
         
 
