@@ -106,7 +106,7 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>222</width>
+                  <width>254</width>
                   <height>386</height>
                  </rect>
                 </property>
@@ -172,23 +172,6 @@
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="QScrollArea" name="scrollArea_2">
-               <property name="widgetResizable">
-                <bool>true</bool>
-               </property>
-               <widget class="QWidget" name="scrollAreaWidgetContents_2">
-                <property name="geometry">
-                 <rect>
-                  <x>0</x>
-                  <y>0</y>
-                  <width>223</width>
-                  <height>419</height>
-                 </rect>
-                </property>
-               </widget>
-              </widget>
-             </item>
             </layout>
            </item>
            <item>
@@ -221,7 +204,7 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>222</width>
+                  <width>254</width>
                   <height>419</height>
                  </rect>
                 </property>
@@ -260,7 +243,7 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>222</width>
+                  <width>254</width>
                   <height>419</height>
                  </rect>
                 </property>

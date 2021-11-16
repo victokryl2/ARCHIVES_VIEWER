@@ -2,7 +2,8 @@ import os
 from PyQt5 import QtWidgets
 from PyQt5 import QtGui
 from PyQt5 import QtCore
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QMimeData, QSize
+from PyQt5.QtGui import QDrag
 
 import f_br
 import data
@@ -73,9 +74,9 @@ class FileBrowser(QtWidgets.QMainWindow, f_br.Ui_MainWindow):
         # os.startfile(file_path)
 
         # получаем список имён всех объектов папки
-        index = self.treeView.currentIndex()    # получаем индекс директории
-        self.dir_path = self.model.filePath(index)   # получаем по индексу путь к папке
-        self.objects_list = os.listdir(self.dir_path)# получаем список имён всех объектов папки
+        index = self.treeView.currentIndex()            # получаем индекс директории
+        self.dir_path = self.model.filePath(index)      # получаем по индексу путь к папке
+        self.objects_list = os.listdir(self.dir_path)   # получаем список имён всех объектов папки
 
         # получаем список только поддиректорий (файлы будут игнорироваться)
         self.subdirs_list = self.get_subdirs_list()
@@ -114,7 +115,6 @@ class FileBrowser(QtWidgets.QMainWindow, f_br.Ui_MainWindow):
                 dir_name = os.path.basename(obj_path)       # обратно отделяем имя папки от пути
                 globals.arch_dict[dir_name] = obj_path      # добавляем путь и имя в словарь
                 sub_directories.append(dir_name)            # добавляем имя архива в список
-        print(globals.arch_dict)
         return sub_directories
 
 
@@ -130,7 +130,7 @@ class HL(QtWidgets.QWidget):
         super().__init__()
         self.archive_name = archive_name
 
-        self.label = QtWidgets.QLabel(self.archive_name)
+        self.label = DragsLabel(self.archive_name)
         self.label.setFixedSize(100, 100)
         self.label.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
         self.label.setStyleSheet("background-color: rgb(138, 191, 255)")
@@ -144,6 +144,23 @@ class HL(QtWidgets.QWidget):
         self.hlay.addWidget(self.label)
         self.hlay.addWidget(self.widget2)
 
+# @brief  Класс создания объектов label с ф-ией Drags&Drop
+# @detail При помощи этого класса создаются labelds в классе class HL(QtWidgets.QWidget)
+# @param  None
+# @retval None       
+class DragsLabel(QtWidgets.QLabel):
+    def __init__(self, archive_name):
+        super().__init__(archive_name)
+        self.archive_name = archive_name
+        self.setText(self.archive_name)
+
+    # переопределяем метод нажатия кнопки
+    def mousePressEvent(self, e):
+        mimeData = QMimeData()          # создаём объект mimdata
+        mimeData.setText(self.text())   # помещаем туда информацию
+        drag = QDrag(self)              # создаём объект drag
+        drag.setMimeData(mimeData)      # помещаем туда mimdata
+        drag.exec()                     # запускаем drag&drop
 
 
 
