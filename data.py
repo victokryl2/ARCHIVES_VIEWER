@@ -6,8 +6,9 @@ class Data():
     def __init__(self, filebrowser):
         self.filebrowser = filebrowser
 
-        self.data = pd.DataFrame()          # создаём пустую dataframe
-        self.data = self.csv_reading()      # читаем данные из csv в dataframe
+        self.data = pd.DataFrame()          # создаём пустую dataframe      
+
+        # self.data = self.csv_reading()      # читаем данные из csv в dataframe
 
 
     def csv_reading(self):

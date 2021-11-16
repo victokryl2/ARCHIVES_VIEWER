@@ -62,7 +62,8 @@ class FileBrowser(QtWidgets.QMainWindow, f_br.Ui_MainWindow):
 ##############################################################################################################
     
     # @brief  Метод коннекта на нажатие кнопки Open файл-браузера
-    # @detail Метод определяет только папки в данной директории и помещает их имена в раздел Список архивов
+    # @detail Метод определяет только папки в данной директории (при помощи метода get_subdirs_list())
+    # и помещает их имена в раздел Список архивов.
     # @param  None
     # @retval None 
     def open_file(self):
@@ -86,24 +87,34 @@ class FileBrowser(QtWidgets.QMainWindow, f_br.Ui_MainWindow):
 
         # 2) сворачиваем файл-браузер
         self.mainwind.fb.close()
-########################################################################################################
-        # # 3) читаем файл в pandas.frame
-        # self.data = data.Data(self)                                 # создаём объект класса Data
+
+        # 3) читаем файл в pandas.frame
+        self.data = data.Data(self)                                 # создаём объект класса Data
+        
         # # 4) строим графики и легенду на вкладке Графики
         # self.graphic = graphic.Graphic(self.mainwind, self.data)    # создаём объект класса Graphic
         # # 5) строим легенду
         # self.legend = legend.Legend(self.mainwind, self.graphic)
 
+
+
+    # @brief  Метод получения списка архивов в корневой папке
+    # @detail Метод создаёт словарь "имя_архива -> "
+    # и помещает их имена в раздел Список архивов.
+    # @param  None
+    # @retval None
     def get_subdirs_list(self):
         # получаем список только поддиректорий (файлы будут игнорироваться)
-        objects_list = os.listdir(self.dir_path)            # получаем список имён всех объектов папки
-        sub_directories = []                           # список для путей
-        for item in objects_list:                      # будут перебираться все объекты папки (папки и файлы)
+        objects_list = os.listdir(self.dir_path)           # получаем список имён всех объектов папки
+        sub_directories = []                               # список для путей
+        for item in objects_list:                          # будут перебираться все объекты папки (папки и файлы)
             obj_path = os.path.join(self.dir_path, item)   # соединяем путь к папке объекта с именем объекта
 
-            if os.path.isdir(obj_path):               # проверяем, является ли объект папкой
-                dir_name = os.path.basename(obj_path) # обратно отделяем имя папки от пути
-                sub_directories.append(dir_name)      # добавляем его путь в список
+            if os.path.isdir(obj_path):                     # проверяем, является ли объект папкой, если является, то:
+                dir_name = os.path.basename(obj_path)       # обратно отделяем имя папки от пути
+                globals.arch_dict[dir_name] = obj_path      # добавляем путь и имя в словарь
+                sub_directories.append(dir_name)            # добавляем имя архива в список
+        print(globals.arch_dict)
         return sub_directories
 
 
