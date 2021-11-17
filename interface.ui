@@ -208,6 +208,11 @@
                   <height>419</height>
                  </rect>
                 </property>
+                <layout class="QVBoxLayout" name="verticalLayout_11">
+                 <item>
+                  <layout class="QVBoxLayout" name="verticalLayout_10"/>
+                 </item>
+                </layout>
                </widget>
               </widget>
              </item>
