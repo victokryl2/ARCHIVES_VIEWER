@@ -1,6 +1,7 @@
 
 from PyQt5 import QtWidgets
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QMimeData
+from PyQt5.QtGui import QDrag
 import matplotlib
 matplotlib.use('Qt5Agg')
 from PyQt5.QtWidgets import QLabel, QPushButton, QScrollArea, QSizePolicy, QVBoxLayout, QWidget
@@ -23,17 +24,15 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         # коннект на нажатие кнопки Обновить
         self.pushButton.clicked.connect(self.on_button)
 
+        # формируем скролэрию с ф-ией Drags&Drop в разделе Активные архивы
         self.scr_area = ScrollAr(self)                          # создаём объект скролэрии
-        self.verticalLayout_3.insertWidget(1, self.scr_area)    # помещаем скролэрию в layout виджета верхнего уровня
-
+        self.verticalLayout_3.addWidget(self.scr_area)          # помещаем скролэрию в layout виджета верхнего уровня
         self.lay = QVBoxLayout()                                # lay внутрь скролэрии
         self.scr_area.setLayout(self.lay)                       # устанавливаем lay внутрь скролэрии
         self.lay_1 = QVBoxLayout()                              # lay_1 внутрь lay
         self.lay.addLayout(self.lay_1)                          # устанавливаем lay_1 в lay
-        
-
         self.dummy_widget = SubWidget(self, self)               # вспомогательный виджет внутри lay_2
-        self.lay.addWidget(self.dummy_widget)                 # добавляем dummy_widget в lay_2
+        self.lay.addWidget(self.dummy_widget)                   # добавляем dummy_widget в lay_2
 
 
 
@@ -137,7 +136,7 @@ class SubWidget(QWidget):
         # загружаем список параметров в раздел Все параметры архива
         for i in range(len(names)):
 
-            self.label1 = QLabel()
+            self.label1 = DragsLabel()
             self.label1.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
             self.label1.setMinimumHeight(20)
             self.label1.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
@@ -146,6 +145,22 @@ class SubWidget(QWidget):
             self.mainwind.verticalLayout_10.addWidget(self.label1)
             # коннект на клик выбранного архива в разделе Активные архивы
             # self.button.clicked.connect(self.on_button1)
+
+# @brief  Класс создания объектов label с ф-ией Drags&Drop
+# @detail При помощи этого класса создаются labels в классе class HL(QtWidgets.QWidget)
+# @param  None
+# @retval None       
+class DragsLabel(QtWidgets.QLabel):
+    def __init__(self):
+        super().__init__()
+
+    # переопределяем метод нажатия кнопки
+    def mousePressEvent(self, e):
+        mimeData = QMimeData()          # создаём объект mimdata
+        mimeData.setText(self.text())   # помещаем туда информацию (текст лейбла)
+        drag = QDrag(self)              # создаём объект drag
+        drag.setMimeData(mimeData)      # помещаем туда mimdata
+        drag.exec()                     # запускаем drag&drop
 
 
 
