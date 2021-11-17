@@ -115,7 +115,6 @@ class FileBrowser(QtWidgets.QMainWindow, f_br.Ui_MainWindow):
                 dir_name = os.path.basename(obj_path)       # обратно отделяем имя папки от пути
                 globals.arch_dict[dir_name] = obj_path      # добавляем путь и имя в словарь
                 sub_directories.append(dir_name)            # добавляем имя архива в список
-        print(globals.arch_dict)
         return sub_directories
 
 

@@ -120,11 +120,9 @@ class SubWidget(QWidget):
         globals.archname_archpath[0] = key
         # извлекаем из словаря соответствующий имени путь и помещаем в промежут. переменную
         globals.archname_archpath[1] = globals.arch_dict[key]
-        print(globals.archname_archpath)
 
         dir_path = globals.archname_archpath[1]
         objects_list = os.listdir(dir_path)           # получаем список имён всех объектов папки
-        print(objects_list)
 
         # ищем первый попавшийся файл csv и получаем из него список параметров
         for i in range(len(objects_list)):
@@ -135,20 +133,23 @@ class SubWidget(QWidget):
                 break
             else:
                 print('false')
-        print(names)
 
         # загружаем список параметров в раздел Все параметры архива
-        # for i in range(len(names)):
+        for i in range(len(names)):
 
-        #     self.button1 = QPushButton()
-        #     self.button1.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
-        #     self.button1.setMinimumHeight(20)
-        #     self.button1.setAlignment(Qt.AlignHLeft | Qt.AlignVCenter)
-        #     self.button1.setStyleSheet("background-color: rgb(138, 191, 255)")
-        #     self.button1.setText(names[i])
-        #     self.mainwind.verticalLayout_10.addWidget(self.button1)
-        #     # коннект на клик выбранного архива в разделе Активные архивы
-        #     # self.button.clicked.connect(self.on_button1)
+            self.label1 = QLabel()
+            self.label1.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
+            self.label1.setMinimumHeight(20)
+            self.label1.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
+            self.label1.setStyleSheet("background-color: rgb(138, 191, 255)")
+            self.label1.setText('  ' + names[i])
+            self.mainwind.verticalLayout_10.addWidget(self.label1)
+            # коннект на клик выбранного архива в разделе Активные архивы
+            # self.button.clicked.connect(self.on_button1)
+
+
+
+
 
 
 
