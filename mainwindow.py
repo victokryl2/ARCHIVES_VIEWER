@@ -160,8 +160,7 @@ class SubWidget(QWidget):
                 print('false')
 
         # загружаем список параметров в раздел Все параметры архива
-        self.clearLayout(self.mainwind.verticalLayout_10)
-
+        self.clearLayout(self.mainwind.verticalLayout_10)   # предварительно очищаем от старых значений
         for i in range(len(names)):
             self.label1 = SubDragsLabel()
             self.label1.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
@@ -171,6 +170,7 @@ class SubWidget(QWidget):
             self.label1.setText('  ' + names[i])
             self.mainwind.verticalLayout_10.addWidget(self.label1)
 
+    # метод, очищающий лейоут от всего содержимого
     def clearLayout(self, layout):
         if layout is not None:
             while layout.count():
@@ -206,7 +206,7 @@ class SubWidget2(QWidget):
         self.label2.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
         self.label2.setMinimumHeight(35)
         self.label2.setStyleSheet("background-color: rgb(134, 182, 255)")
-        self.label2.setText(e.mimeData().text())
+        self.label2.setText('[' + globals.archname_archpath[0] +']' + e.mimeData().text())
         self.mainwind.lay_b_1.addWidget(self.label2)
 
 
