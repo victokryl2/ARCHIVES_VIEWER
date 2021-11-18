@@ -25,22 +25,22 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         # формируем скролэрию с ф-ией Drags&Drop в разделе Активные архивы
         self.scr_area = SubScrollAr(self)                       # создаём объект скролэрии
         self.verticalLayout_3.addWidget(self.scr_area)          # помещаем скролэрию в layout виджета верхнего уровня
-        self.lay_a = QVBoxLayout()                                # lay внутрь скролэрии
-        self.scr_area.setLayout(self.lay_a)                       # устанавливаем lay внутрь скролэрии
-        self.lay_a_1 = QVBoxLayout()                              # lay_1 внутрь lay
-        self.lay_a.addLayout(self.lay_a_1)                          # устанавливаем lay_1 в lay
+        self.lay_a = QVBoxLayout()                              # lay внутрь скролэрии
+        self.scr_area.setLayout(self.lay_a)                     # устанавливаем lay внутрь скролэрии
+        self.lay_a_1 = QVBoxLayout()                            # lay_1 внутрь lay
+        self.lay_a.addLayout(self.lay_a_1)                      # устанавливаем lay_1 в lay
         self.dummy_widget = SubWidget(self, self)               # вспомогательный виджет внутри lay_2
-        self.lay_a.addWidget(self.dummy_widget)                   # добавляем dummy_widget в lay_2
+        self.lay_a.addWidget(self.dummy_widget)                 # добавляем dummy_widget в lay_2
 
         # формируем скролэрию с ф-ией Drags&Drop в разделе Активные параметры
-        self.scr_area2 = SubScrollAr2(self)                       # создаём объект скролэрии
+        self.scr_area2 = SubScrollAr2(self)                      # создаём объект скролэрии
         self.verticalLayout_5.addWidget(self.scr_area2)          # помещаем скролэрию в layout виджета верхнего уровня
-        self.lay_b = QVBoxLayout()                                # lay внутрь скролэрии
-        self.scr_area2.setLayout(self.lay_b)                       # устанавливаем lay внутрь скролэрии
-        self.lay_b_1 = QVBoxLayout()                              # lay_1 внутрь lay
-        self.lay_b.addLayout(self.lay_b_1)                          # устанавливаем lay_1 в lay
-        self.dummy_widget2 = SubWidget2(self, self)               # вспомогательный виджет внутри lay_2
-        self.lay_b.addWidget(self.dummy_widget2)                   # добавляем dummy_widget в lay_2
+        self.lay_b = QVBoxLayout()                               # lay внутрь скролэрии
+        self.scr_area2.setLayout(self.lay_b)                     # устанавливаем lay внутрь скролэрии
+        self.lay_b_1 = QVBoxLayout()                             # lay_1 внутрь lay
+        self.lay_b.addLayout(self.lay_b_1)                       # устанавливаем lay_1 в lay
+        self.dummy_widget2 = SubWidget2(self, self)              # вспомогательный виджет внутри lay_2
+        self.lay_b.addWidget(self.dummy_widget2)                 # добавляем dummy_widget в lay_2
 
     # метод для коннекта на нажатие кнопки "Обновить"
     def on_button(self):
@@ -57,7 +57,7 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
 ####### ВСПОМОГАТЕЛЬНЫЕ КЛАССЫ  #####################################################
 #####################################################################################
 
-# @brief  Класс объекта скроллэрии
+# @brief  Класс объекта скроллэрии раздела Активные архивы
 # @detail Этот класс создан для переопределения методов для работы Drag&Drop и придания его объектам необходимых свойств
 # @param  mainwindow - объект главного окна интерфейса
 # @retval None 
@@ -160,8 +160,9 @@ class SubWidget(QWidget):
                 print('false')
 
         # загружаем список параметров в раздел Все параметры архива
-        for i in range(len(names)):
+        self.clearLayout(self.mainwind.verticalLayout_10)
 
+        for i in range(len(names)):
             self.label1 = SubDragsLabel()
             self.label1.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
             self.label1.setMinimumHeight(20)
@@ -169,6 +170,16 @@ class SubWidget(QWidget):
             self.label1.setStyleSheet("background-color: rgb(134, 182, 255)")
             self.label1.setText('  ' + names[i])
             self.mainwind.verticalLayout_10.addWidget(self.label1)
+
+    def clearLayout(self, layout):
+        if layout is not None:
+            while layout.count():
+                item = layout.takeAt(0)
+                widget = item.widget()
+                if widget is not None:
+                    widget.deleteLater()
+                else:
+                    self.clearLayout(item.layout())
 
 
 # @brief  Класс объекта вспомогательного виджета для раздела Активные параметры

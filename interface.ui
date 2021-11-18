@@ -95,10 +95,13 @@
                <property name="font">
                 <font>
                  <pointsize>12</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
                 </font>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(94, 128, 179);</string>
+                <string notr="true">background-color: rgb(94, 128, 179);
+color: rgb(231, 231, 231);</string>
                </property>
                <property name="text">
                 <string>СПИСОК АРХИВОВ</string>
@@ -118,7 +121,7 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>308</width>
+                  <width>290</width>
                   <height>375</height>
                  </rect>
                 </property>
@@ -152,10 +155,13 @@
                <property name="font">
                 <font>
                  <pointsize>12</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
                 </font>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(94, 128, 179);</string>
+                <string notr="true">background-color: rgb(94, 128, 179);
+color: rgb(231, 231, 231);</string>
                </property>
                <property name="text">
                 <string>Обновить</string>
@@ -183,10 +189,13 @@
                <property name="font">
                 <font>
                  <pointsize>12</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
                 </font>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(94, 128, 179);</string>
+                <string notr="true">background-color: rgb(94, 128, 179);
+color: rgb(231, 231, 231);</string>
                </property>
                <property name="text">
                 <string>АКТИВН.АРХИВЫ</string>
@@ -217,10 +226,13 @@
                <property name="font">
                 <font>
                  <pointsize>12</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
                 </font>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(94, 128, 179);</string>
+                <string notr="true">background-color: rgb(94, 128, 179);
+color: rgb(231, 231, 231);</string>
                </property>
                <property name="text">
                 <string>ПАРАМЕТРЫ АРХИВА</string>
@@ -240,7 +252,7 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>307</width>
+                  <width>289</width>
                   <height>408</height>
                  </rect>
                 </property>
@@ -273,10 +285,13 @@
                <property name="font">
                 <font>
                  <pointsize>12</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
                 </font>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(94, 128, 179);</string>
+                <string notr="true">background-color: rgb(94, 128, 179);
+color: rgb(231, 231, 231);</string>
                </property>
                <property name="text">
                 <string>АКТИВН.ПАРАМ-РЫ</string>
