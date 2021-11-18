@@ -2,8 +2,6 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt, QMimeData
 from PyQt5.QtGui import QDrag
-import matplotlib
-matplotlib.use('Qt5Agg')
 from PyQt5.QtWidgets import QLabel, QPushButton, QScrollArea, QSizePolicy, QVBoxLayout, QWidget
 import pandas as pd
 import os
@@ -44,14 +42,10 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.dummy_widget2 = SubWidget2(self, self)               # вспомогательный виджет внутри lay_2
         self.lay_b.addWidget(self.dummy_widget2)                   # добавляем dummy_widget в lay_2
 
-
     # метод для коннекта на нажатие кнопки "Обновить"
     def on_button(self):
         self.fb = filebrowser.FileBrowser(self) # объект файл-браузера
         self.fb.show()
-
-    ####### ПЕРЕОПРЕДЕЛЯЕМЫЕ МЕТОДЫ #################################################
-    #################################################################################
 
     # переопределим метод событий mainwindow с целью определения его размеров
     # и регулирования высоты виджета с легендой
@@ -83,7 +77,7 @@ class SubScrollAr(QScrollArea):
         self.button = QPushButton(self)
         self.button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
         self.button.setMinimumHeight(35)
-        self.button.setStyleSheet("background-color: rgb(138, 191, 255)")
+        self.button.setStyleSheet("background-color: rgb(134, 182, 255)")
         self.button.setText(e.mimeData().text())
         self.mainwind.lay_1.addWidget(self.button)
 
@@ -108,7 +102,7 @@ class SubScrollAr2(QScrollArea):
         self.label = QLabel(self)
         self.label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
         self.label.setMinimumHeight(35)
-        self.label.setStyleSheet("background-color: rgb(138, 191, 255)")
+        self.label.setStyleSheet("background-color: rgb(134, 182, 255)")
         self.label.setText(e.mimeData().text())
         self.mainwind.lay_b_1.addWidget(self.label)
         
@@ -135,7 +129,7 @@ class SubWidget(QWidget):
         self.button1 = QPushButton()
         self.button1.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
         self.button1.setMinimumHeight(35)
-        self.button1.setStyleSheet("background-color: rgb(138, 191, 255)")
+        self.button1.setStyleSheet("background-color: rgb(134, 182, 255)")
         self.button1.setText(e.mimeData().text())
         self.mainwind.lay_a_1.addWidget(self.button1)
         # коннект на клик выбранного архива в разделе Активные архивы
@@ -172,7 +166,7 @@ class SubWidget(QWidget):
             self.label1.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
             self.label1.setMinimumHeight(20)
             self.label1.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
-            self.label1.setStyleSheet("background-color: rgb(138, 191, 255)")
+            self.label1.setStyleSheet("background-color: rgb(134, 182, 255)")
             self.label1.setText('  ' + names[i])
             self.mainwind.verticalLayout_10.addWidget(self.label1)
 
@@ -200,7 +194,7 @@ class SubWidget2(QWidget):
         self.label2 = QLabel()
         self.label2.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
         self.label2.setMinimumHeight(35)
-        self.label2.setStyleSheet("background-color: rgb(138, 191, 255)")
+        self.label2.setStyleSheet("background-color: rgb(134, 182, 255)")
         self.label2.setText(e.mimeData().text())
         self.mainwind.lay_b_1.addWidget(self.label2)
 
