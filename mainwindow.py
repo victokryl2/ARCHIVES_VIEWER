@@ -25,20 +25,27 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.pushButton.clicked.connect(self.on_button)
 
         # формируем скролэрию с ф-ией Drags&Drop в разделе Активные архивы
-        self.scr_area = ScrollAr(self)                          # создаём объект скролэрии
+        self.scr_area = SubScrollAr(self)                       # создаём объект скролэрии
         self.verticalLayout_3.addWidget(self.scr_area)          # помещаем скролэрию в layout виджета верхнего уровня
-        self.lay = QVBoxLayout()                                # lay внутрь скролэрии
-        self.scr_area.setLayout(self.lay)                       # устанавливаем lay внутрь скролэрии
-        self.lay_1 = QVBoxLayout()                              # lay_1 внутрь lay
-        self.lay.addLayout(self.lay_1)                          # устанавливаем lay_1 в lay
+        self.lay_a = QVBoxLayout()                                # lay внутрь скролэрии
+        self.scr_area.setLayout(self.lay_a)                       # устанавливаем lay внутрь скролэрии
+        self.lay_a_1 = QVBoxLayout()                              # lay_1 внутрь lay
+        self.lay_a.addLayout(self.lay_a_1)                          # устанавливаем lay_1 в lay
         self.dummy_widget = SubWidget(self, self)               # вспомогательный виджет внутри lay_2
-        self.lay.addWidget(self.dummy_widget)                   # добавляем dummy_widget в lay_2
+        self.lay_a.addWidget(self.dummy_widget)                   # добавляем dummy_widget в lay_2
+
+        # формируем скролэрию с ф-ией Drags&Drop в разделе Активные параметры
+        self.scr_area2 = SubScrollAr2(self)                       # создаём объект скролэрии
+        self.verticalLayout_5.addWidget(self.scr_area2)          # помещаем скролэрию в layout виджета верхнего уровня
+        self.lay_b = QVBoxLayout()                                # lay внутрь скролэрии
+        self.scr_area2.setLayout(self.lay_b)                       # устанавливаем lay внутрь скролэрии
+        self.lay_b_1 = QVBoxLayout()                              # lay_1 внутрь lay
+        self.lay_b.addLayout(self.lay_b_1)                          # устанавливаем lay_1 в lay
+        self.dummy_widget2 = SubWidget2(self, self)               # вспомогательный виджет внутри lay_2
+        self.lay_b.addWidget(self.dummy_widget2)                   # добавляем dummy_widget в lay_2
 
 
-
-
-
-
+    # метод для коннекта на нажатие кнопки "Обновить"
     def on_button(self):
         self.fb = filebrowser.FileBrowser(self) # объект файл-браузера
         self.fb.show()
@@ -57,10 +64,10 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
 #####################################################################################
 
 # @brief  Класс объекта скроллэрии
-# @detail Этот класс создан для переопределения методов для работы Drag&Drop придания его объектам необходимых свойств
+# @detail Этот класс создан для переопределения методов для работы Drag&Drop и придания его объектам необходимых свойств
 # @param  mainwindow - объект главного окна интерфейса
 # @retval None 
-class ScrollAr(QScrollArea):
+class SubScrollAr(QScrollArea):
     def __init__(self, mainwindow):
         super().__init__()
         self.mainwind = mainwindow
@@ -79,6 +86,31 @@ class ScrollAr(QScrollArea):
         self.button.setStyleSheet("background-color: rgb(138, 191, 255)")
         self.button.setText(e.mimeData().text())
         self.mainwind.lay_1.addWidget(self.button)
+
+# @brief  Класс объекта скроллэрии "2"
+# @detail Этот класс создан для переопределения методов для работы Drag&Drop и придания его объектам необходимых свойств
+# Данный класс SubScrollAr2 отличается от SubScrollAr тем, что по dropevent-у создаются Лейблы, а не кнопки.
+# @param  mainwindow - объект главного окна интерфейса
+# @retval None 
+class SubScrollAr2(QScrollArea):
+    def __init__(self, mainwindow):
+        super().__init__()
+        self.mainwind = mainwindow
+        self.setAcceptDrops(True)
+    # переопределяем метод перехода границы виджета
+    def dragEnterEvent(self, e):
+        if e.mimeData().hasFormat('text/plain'):
+            e.accept()
+        else:
+            e.ignore()
+    # переопределяем метод события drop
+    def dropEvent(self, e):
+        self.label = QLabel(self)
+        self.label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.label.setMinimumHeight(35)
+        self.label.setStyleSheet("background-color: rgb(138, 191, 255)")
+        self.label.setText(e.mimeData().text())
+        self.mainwind.lay_b_1.addWidget(self.label)
         
 
 # @brief  Класс объекта вспомогательного виджета
@@ -92,7 +124,6 @@ class SubWidget(QWidget):
         self.mainwind = mainwindow
         self.setAcceptDrops(True)   # разрешаем виджету принимать действие drop
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.setStyleSheet("background-color: rgb(138, 191, 255)")
 
     def dragEnterEvent(self, e):
         if e.mimeData().hasFormat('text/plain'):
@@ -101,16 +132,17 @@ class SubWidget(QWidget):
             e.ignore()
 
     def dropEvent(self, e):
-        self.button = QPushButton()
-        self.button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
-        self.button.setMinimumHeight(35)
-        self.button.setStyleSheet("background-color: rgb(138, 191, 255)")
-        self.button.setText(e.mimeData().text())
-        self.mainwind.lay_1.addWidget(self.button)
+        self.button1 = QPushButton()
+        self.button1.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.button1.setMinimumHeight(35)
+        self.button1.setStyleSheet("background-color: rgb(138, 191, 255)")
+        self.button1.setText(e.mimeData().text())
+        self.mainwind.lay_a_1.addWidget(self.button1)
         # коннект на клик выбранного архива в разделе Активные архивы
-        self.button.clicked.connect(self.on_button)
+        self.button1.clicked.connect(self.on_button_achive)
 
-    def on_button(self):
+    # метод нажатия на кнопку архива, который был добавлен в раздел Активные архивы
+    def on_button_achive(self):
         # извлекаем id объекта (в данном случае это у нас название архива),
         # что является ключом для поиска в словаре
         sender = self.sender()  # получаем id экземпляра
@@ -136,21 +168,48 @@ class SubWidget(QWidget):
         # загружаем список параметров в раздел Все параметры архива
         for i in range(len(names)):
 
-            self.label1 = DragsLabel()
+            self.label1 = SubDragsLabel()
             self.label1.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
             self.label1.setMinimumHeight(20)
             self.label1.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
             self.label1.setStyleSheet("background-color: rgb(138, 191, 255)")
             self.label1.setText('  ' + names[i])
             self.mainwind.verticalLayout_10.addWidget(self.label1)
-            # коннект на клик выбранного архива в разделе Активные архивы
-            # self.button.clicked.connect(self.on_button1)
+
+
+# @brief  Класс объекта вспомогательного виджета для раздела Активные параметры
+# @detail Обладая политикой expanding объект этого класса, расширяясь в вертикальном направлении,
+# заставляет быть добавляемые объекты всегда вверху.
+# Этот класс SubWidget2 отличается от класса SubWidget тем, добавляет лейблы в
+# @param  mainwindow - объект главного окна интерфейса
+# @retval None 
+class SubWidget2(QWidget):
+    def __init__(self, mainwindow, parent):
+        super().__init__(parent)
+        self.mainwind = mainwindow
+        self.setAcceptDrops(True)   # разрешаем виджету принимать действие drop
+        self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
+    def dragEnterEvent(self, e):
+        if e.mimeData().hasFormat('text/plain'):
+            e.accept()
+        else:
+            e.ignore()
+
+    def dropEvent(self, e):
+        self.label2 = QLabel()
+        self.label2.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.label2.setMinimumHeight(35)
+        self.label2.setStyleSheet("background-color: rgb(138, 191, 255)")
+        self.label2.setText(e.mimeData().text())
+        self.mainwind.lay_b_1.addWidget(self.label2)
+
 
 # @brief  Класс создания объектов label с ф-ией Drags&Drop
 # @detail При помощи этого класса создаются labels в классе class HL(QtWidgets.QWidget)
 # @param  None
 # @retval None       
-class DragsLabel(QtWidgets.QLabel):
+class SubDragsLabel(QtWidgets.QLabel):
     def __init__(self):
         super().__init__()
 
