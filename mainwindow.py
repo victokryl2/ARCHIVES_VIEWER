@@ -20,7 +20,7 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.w_height = 0   # высота главного виджета (от него считается высота легенды)
 
         # коннект на нажатие кнопки Обновить
-        self.pushButton.clicked.connect(self.on_button)
+        self.pushButton.clicked.connect(self.on_button_obnovit)
 
         # формируем скролэрию с ф-ией Drags&Drop в разделе Активные архивы
         self.scr_area = SubScrollAr(self)                       # создаём объект скролэрии
@@ -43,7 +43,10 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.lay_b.addWidget(self.dummy_widget2)                 # добавляем dummy_widget в lay_2
 
     # метод для коннекта на нажатие кнопки "Обновить"
-    def on_button(self):
+    def on_button_obnovit(self):
+        df = pd.DataFrame({'C':[7,8,9,4,2,3]})
+        print(df)
+
         self.fb = filebrowser.FileBrowser(self) # объект файл-браузера
         self.fb.show()
 
