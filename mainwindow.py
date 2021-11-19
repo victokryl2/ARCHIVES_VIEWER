@@ -214,7 +214,7 @@ class SubWidget2(QWidget):
         self.label2.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
         self.label2.setMinimumHeight(35)
         self.label2.setStyleSheet("background-color: rgb(134, 182, 255)")
-        self.label2.setText('[' + globals.archname_archpath[0] +']' + e.mimeData().text())
+        self.label2.setText('['+ globals.archname_archpath[0] +']' + ' *' + e.mimeData().text())
         self.mainwind.lay_b_1.addWidget(self.label2)
 
 
