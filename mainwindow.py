@@ -53,8 +53,7 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
     # метод коннекта на нажатие вкладки "Графики"
     def on_tab_click(self, index):
         if index == 2:
-            main_df = main_dataframe.MainDataframe()
-            print('dsfgdsg')
+            main_df = main_dataframe.MainDataframe(self)
 
     # переопределим метод событий mainwindow с целью определения его размеров
     # и регулирования высоты виджета с легендой
