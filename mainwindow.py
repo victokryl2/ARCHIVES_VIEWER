@@ -44,9 +44,6 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
 
     # метод для коннекта на нажатие кнопки "Обновить"
     def on_button_obnovit(self):
-        df = pd.DataFrame({'C':[7,8,9,4,2,3]})
-        print(df)
-
         self.fb = filebrowser.FileBrowser(self) # объект файл-браузера
         self.fb.show()
 
