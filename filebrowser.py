@@ -89,8 +89,8 @@ class FileBrowser(QtWidgets.QMainWindow, f_br.Ui_MainWindow):
         # 2) сворачиваем файл-браузер
         self.mainwind.fb.close()
 
-        # 3) читаем файл в pandas.frame
-        self.data = data.Data(self)                                 # создаём объект класса Data
+        # # 3) читаем файл в pandas.frame
+        # self.data = data.Data(self)                                 # создаём объект класса Data
         
         # # 4) строим графики и легенду на вкладке Графики
         # self.graphic = graphic.Graphic(self.mainwind, self.data)    # создаём объект класса Graphic

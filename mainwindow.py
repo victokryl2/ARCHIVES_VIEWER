@@ -9,6 +9,7 @@ import os
 import interface
 import filebrowser
 import globals
+import main_dataframe
 
 # Класс главного окна со своим конструктором
 class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
@@ -21,6 +22,8 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
 
         # коннект на нажатие кнопки Обновить
         self.pushButton.clicked.connect(self.on_button_obnovit)
+        # коннект на клик вкладки Графики
+        self.tabWidget.tabBarClicked.connect(self.on_tab_click)
 
         # формируем скролэрию с ф-ией Drags&Drop в разделе Активные архивы
         self.scr_area = SubScrollAr(self)                       # создаём объект скролэрии
@@ -42,10 +45,16 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.dummy_widget2 = SubWidget2(self, self)              # вспомогательный виджет внутри lay_2
         self.lay_b.addWidget(self.dummy_widget2)                 # добавляем dummy_widget в lay_2
 
-    # метод для коннекта на нажатие кнопки "Обновить"
+    # метод коннекта на нажатие кнопки "Обновить"
     def on_button_obnovit(self):
         self.fb = filebrowser.FileBrowser(self) # объект файл-браузера
         self.fb.show()
+
+    # метод коннекта на нажатие вкладки "Графики"
+    def on_tab_click(self, index):
+        if index == 2:
+            main_df = main_dataframe.MainDataframe()
+            print('dsfgdsg')
 
     # переопределим метод событий mainwindow с целью определения его размеров
     # и регулирования высоты виджета с легендой
