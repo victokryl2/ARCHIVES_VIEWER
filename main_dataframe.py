@@ -18,6 +18,7 @@ class MainDataframe():
                 label = item.widget()                       # получаем лейбел
                 text = label.text()                         # извлекаем название лейбла
                 a = text.split(' *')                         # получаем список слов названия
+                param_name = a[1]
                 a[0] = a[0].replace("[", "")                # удаляем скобки из имени архива
                 a[0] = a[0].replace("]", "")
                 arch_name = a[0]                            # получаем имя архива
@@ -35,15 +36,15 @@ class MainDataframe():
                     full_path = os.path.join(arch_path, csv_list[i])
 
                     # получаем из файла временный dataframe (tmp_df)
-                    print(full_path)
                     tmp_df = pd.read_csv(full_path)      # читаем данные из csv в dataframe
 
                     # извлекаем из tmp_df колонки времени и данные параметра
-                    # New_D = df[['name','episodes']]
+                    nm = tmp_df.columns
+                    tmp_df_2 = tmp_df[[nm[1], param_name]]
 
 
                     # конкатинируем с sub_df
-                # print(tmp_df)
+                print(tmp_df_2)
                 
                 
 

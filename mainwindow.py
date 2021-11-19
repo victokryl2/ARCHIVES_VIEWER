@@ -5,6 +5,7 @@ from PyQt5.QtGui import QDrag
 from PyQt5.QtWidgets import QLabel, QPushButton, QScrollArea, QSizePolicy, QVBoxLayout, QWidget
 import pandas as pd
 import os
+import sys
 
 import interface
 import filebrowser
@@ -214,7 +215,11 @@ class SubWidget2(QWidget):
         self.label2.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
         self.label2.setMinimumHeight(35)
         self.label2.setStyleSheet("background-color: rgb(134, 182, 255)")
-        self.label2.setText('['+ globals.archname_archpath[0] +']' + ' *' + e.mimeData().text())
+        # почему-то в процессе переноса чарез mime добавляются два пробела впереди
+        # нижеследующие 2 строчки удаляют эти 2 пробела
+        tmp_text = e.mimeData().text()
+        new_text = tmp_text.replace(' ', '', 2)
+        self.label2.setText('['+ globals.archname_archpath[0] +']' + ' *' + new_text)
         self.mainwind.lay_b_1.addWidget(self.label2)
 
 
