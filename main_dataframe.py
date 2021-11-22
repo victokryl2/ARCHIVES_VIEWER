@@ -68,6 +68,12 @@ class MainDataframe():
                 # конкатинируем с df
                 df = pd.concat([df, tmp_df_2])
 
+            # добавляем имя архива к наименованию параметра
+            words_list[0] = '[' + words_list[0]
+            words_list[0] = words_list[0] + ']'
+            col_nms3 = df.columns
+            df = df.rename(columns={col_nms3[1] : words_list[0] + ' * ' + col_nms3[1]}) # переименовываем 0-ю колонку
+
             # сбрасываем индексацию
             df.reset_index(drop=True, inplace=True)
             return df
