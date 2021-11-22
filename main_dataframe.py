@@ -31,17 +31,17 @@ class MainDataframe():
     def df_formation(self, i, layout):
             param_name = ''
             csv_list = []   # пустой список для имён csv-шников
-            # пустая вспомогательная df (будет содержать сконкатинированные данные из всех csv-шников по взятому параметру)
-            df = pd.DataFrame({})
+            # # пустая вспомогательная df (будет содержать сконкатинированные данные из всех csv-шников по взятому параметру)
+            # df = pd.DataFrame({})
 
             item = layout.itemAt(i)                     # получаем i-тый элемент контейнера
             label = item.widget()                       # получаем лейбел
             text = label.text()                         # извлекаем название лейбла
-            a = text.split(' *')                        # получаем список слов названия
-            param_name = a[1]                           # имя параметра
-            a[0] = a[0].replace("[", "")                # удаляем скобки из имени архива
-            a[0] = a[0].replace("]", "")
-            arch_name = a[0]                            # получаем имя архива
+            words_list = text.split(' *')                        # получаем список слов названия
+            param_name = words_list[1]                           # имя параметра
+            words_list[0] = words_list[0].replace("[", "")       # удаляем скобки из имени архива
+            words_list[0] = words_list[0].replace("]", "")
+            arch_name = words_list[0]                            # получаем имя архива
             arch_path = globals.arch_dict[arch_name]    # путь к архиву
             objects_list = os.listdir(arch_path)        # список всех объектов в папке
             # составляем список только из csv-шников
@@ -51,7 +51,7 @@ class MainDataframe():
                     csv_list.append(objects_list[i]) # здесь список csv-шников
 
             # итерируемся по списку файлов в текущем архиве:
-            df = pd.DataFrame({})   # обнуляем df перед каждым архивом                
+            df = pd.DataFrame({})   # df будет содержать сконкатинированные данные из всех csv-шников по взятому параметру              
             for i in range(len(csv_list)):
                 # соединяем путь к архиву с именем файла
                 full_path = os.path.join(arch_path, csv_list[i])
@@ -60,10 +60,10 @@ class MainDataframe():
                 tmp_df = pd.read_csv(full_path)      # читаем все данные из текущего csv-шника в dataframe
 
                 # извлекаем из tmp_df только нужные колонки (времени и данные параметра)
-                nm = tmp_df.columns                     # список названий колонок
-                tmp_df_2 = tmp_df[[nm[1], param_name]]  # извлекли нужные колонки
-                nm2 = tmp_df_2.columns                  # список названий колонок (для переименования первой)
-                tmp_df_2 = tmp_df_2.rename(columns={nm2[0] : 'date_time'}) # переименовываем 0-ю колонку
+                col_nms = tmp_df.columns                     # список названий колонок
+                tmp_df_2 = tmp_df[[col_nms[1], param_name]]  # извлекли нужные колонки
+                col_nms2 = tmp_df_2.columns                  # список названий колонок (для переименования первой)
+                tmp_df_2 = tmp_df_2.rename(columns={col_nms2[0] : 'date_time'}) # переименовываем 0-ю колонку
 
                 # конкатинируем с df
                 df = pd.concat([df, tmp_df_2])
