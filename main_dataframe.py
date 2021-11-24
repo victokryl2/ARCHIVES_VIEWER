@@ -22,7 +22,9 @@ class MainDataframe():
                 self.add_param_to_sub_main_df(sub_df)
         else:
             print('no objects')
-        print(self.sub_main_df)
+
+        globals.main_df = self.cut_sub_main_df(self.sub_main_df)
+        # print(globals.main_df)
 
     
     # @brief  Метод, формирующий вспомогательную датафрейм.
@@ -139,6 +141,30 @@ class MainDataframe():
         for i in range(d1_len):
             v = indx_time_0_df + i
             self.sub_main_df.loc[[v], par_n] = df.loc[i][par_n]
+
+    def cut_sub_main_df(self, df):
+        # получаем индекс первого ненулевого
+        col_names_list = df.columns.tolist()
+        col_names_list.pop(0)       # удаляем первый элемент списка (время)
+        ind_list = []
+        for col in col_names_list:
+            tmp_df = df[col]
+            ind_list.append(tmp_df.ne(0).idxmax())  # составляем список из индексов первых ненулевых
+        first_ind = min(ind_list)
+        # получаем индекс последнего ненулевого
+        last_ind_list = []
+        for col in col_names_list:
+            for i in range(len(tmp_df)):
+                val = df.loc[i][col]
+                if val != 0:
+                    ind_list = df.index[df[col] == val].tolist()
+                    max_ind = max(ind_list)
+            last_ind_list.append(max_ind)
+        last_ind = max(last_ind_list)
+        # получаем срез строк по первому и последнему индексу
+        new_df = df.iloc[first_ind:last_ind+1]
+        new_df.reset_index(drop=True, inplace=True)
+        return new_df
 
         
 

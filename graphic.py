@@ -7,6 +7,8 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5 import NavigationToolbar2QT as NavigationToolbar
 
+import globals
+
 
 # Пользовательский класс, наследованный от FigureCanvas.
 # В нём собраны все методы, необходимые для рисования графика.
@@ -25,8 +27,10 @@ class Graphic(QWidget):
         QWidget.__init__(self, parent=parent)   # конструктор родительского класса
 
         self.mainwind = mainwindow
-        self.data = datasource.data
-        self.column_list = [4, 6, 8, 12, 15]      # список колонок, по которым графики строить
+        # self.data = datasource.data
+        self.data = globals.main_df
+        print(self.data)
+        self.column_list = [1]      # список колонок, по которым графики строить
         self.colors_list = []           # список для хранения кодов цветов линий легенды
 
         # Создание объекта графика как объекта пользовательского класса MplCanvas
