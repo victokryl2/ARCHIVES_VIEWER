@@ -8,9 +8,9 @@ class MainDataframe():
         self.mainwind = mainwindow
 
         # предварительно создаём sub_main_df и заполняем её 24-часами времени посекундно
-        
-
-
+        l = self.time_list_generate()                   # список "времени" в формате string
+        self.sub_main_df = pd.DataFrame({'time': l})    # инициализируем sub_main_df 24-часами времени
+    
         # итерируемся по элементам контейнера (параметрам), генерим для каждого sub_df
         # и добавляем каждый в sub_main_df
         layout = self.mainwind.lay_b_1  # определяем кол-во объектов в контейнере с параметрами
@@ -19,10 +19,10 @@ class MainDataframe():
             for i in range(objs_number):
                 # для каждого параметра из контейнера формируем датафрейм
                 sub_df = self.df_formation(i, layout)   # вспомогательный датафрейм
-                print(sub_df)
+                self.add_param_to_sub_main_df(sub_df)
         else:
             print('no objects')
-
+        print(self.sub_main_df)
 
     
     # @brief  Метод, формирующий вспомогательную датафрейм.
@@ -86,6 +86,59 @@ class MainDataframe():
         new_df.insert(0, col_name, tmp_list)  # вставляем новую колонку
         return new_df
 
+    # вспомогательный метод, генерящий список времени в формате 00:00:00
+    def time_list_generate(self):
+        t_tmp = ['00','00','00']
+        t = '00:00:00'
+        t_list = []
+        
+        for h in range(24):
+            self.hours(t_tmp, h)
+            for m in range(60):
+                self.minutes(t_tmp, m)
+                for s in range(60):
+                    self.seconds(t_tmp, t, t_list, s)
+        return t_list
+
+    # вспомогательный метод для метода time_list_generate(), генерящий секунды
+    def hours(self, t_tmp, h):
+        if h < 10:
+            t_tmp[0] = '0' + str(h)
+        else:
+            t_tmp[0] = str(h)
+    # вспомогательный метод для метода time_list_generate(), генерящий минуты
+    def minutes(self, t_tmp, m):
+        if m < 10:
+            t_tmp[1] = '0' + str(m)
+        else:
+            t_tmp[1] = str(m)
+    # вспомогательный метод для метода time_list_generate(), генерящий часы
+    def seconds(self, t_tmp, t, t_list, s):
+        if s < 10:
+            t_tmp[2] = '0' + str(s)
+        else:
+            t_tmp[2] = str(s)
+        t = t_tmp[0] + ':' + t_tmp[1] + ':' + t_tmp[2]
+        t_list.append(t)
+
+
+
+
+    def add_param_to_sub_main_df(self, df):
+        col_list = df.columns           # получаем список имён колонок
+        par_n = col_list[1]             # получаем имя параметра
+        self.sub_main_df[par_n] = 0     # добавляем к sub_main_df новую нулевую колонку с именем параметра
+        # получаем первое значение времени 'time' из df
+        time_0_df = df.iloc[0]['time']
+        # Ищем индекс такого же значения как time_0_df  в sub_main_df
+        indx_tuple = self.sub_main_df.index[self.sub_main_df.time == time_0_df]  # кортеж со списоком индексов искомых значений в столбце
+        indx_time_0_df = indx_tuple[0]  # индекс искомого значения
+        # получаем длину датафрейм df
+        d1_len = len(df)
+        # итерируемся по длине d1 и вставляем d1 в sub_main_df
+        for i in range(d1_len):
+            v = indx_time_0_df + i
+            self.sub_main_df.loc[[v], par_n] = df.loc[i][par_n]
 
         
 
