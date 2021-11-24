@@ -31,8 +31,6 @@ class MainDataframe():
     def df_formation(self, i, layout):
             param_name = ''
             csv_list = []   # пустой список для имён csv-шников
-            # # пустая вспомогательная df (будет содержать сконкатинированные данные из всех csv-шников по взятому параметру)
-            # df = pd.DataFrame({})
 
             item = layout.itemAt(i)                     # получаем i-тый элемент контейнера
             label = item.widget()                       # получаем лейбел
@@ -62,8 +60,9 @@ class MainDataframe():
                 # извлекаем из tmp_df только нужные колонки (времени и данные параметра)
                 col_nms = tmp_df.columns                     # список названий колонок
                 tmp_df_2 = tmp_df[[col_nms[1], param_name]]  # извлекли нужные колонки
-                col_nms2 = tmp_df_2.columns                  # список названий колонок (для переименования первой)
-                tmp_df_2 = tmp_df_2.rename(columns={col_nms2[0] : 'date_time'}) # переименовываем 0-ю колонку
+                col_nms2 = tmp_df_2.columns                  # список названий колонок (для переименования нулевой)
+                tmp_df_2 = tmp_df_2.rename(columns={col_nms2[0] : 'time'}) # переименовываем 0-ю колонку
+                tmp_df_2 = self.delete_date(tmp_df_2)                   # удаляем дату из колонки
 
                 # конкатинируем с df
                 df = pd.concat([df, tmp_df_2])
@@ -72,10 +71,26 @@ class MainDataframe():
             words_list[0] = '[' + words_list[0]
             words_list[0] = words_list[0] + ']'
             col_nms3 = df.columns
-            df = df.rename(columns={col_nms3[1] : words_list[0] + ' * ' + col_nms3[1]}) # переименовываем 0-ю колонку
+            df = df.rename(columns={col_nms3[1] : words_list[0] + ' * ' + col_nms3[1]}) # добавляем к имени параметра название архива
 
             # сбрасываем индексацию
             df.reset_index(drop=True, inplace=True)
             return df
+
+    # метод, выделяющий из колонки, содержащей дату и время только время
+    def delete_date(self, df):
+        col_name = df.columns[0]        # получаем имя 0-й колонки
+        tmp_list = []
+        for i in range(len(df)):
+            tmp = df.loc[i][col_name]
+            tmp_list.append(tmp[-8:])   # составляем список только времён
+        new_df = df.drop(columns=[col_name])  # удаляем старый столбец
+        new_df.insert(0, col_name, tmp_list)  # вставляем новую колонку
+        return new_df
+
+
+        
+
+
 
         
