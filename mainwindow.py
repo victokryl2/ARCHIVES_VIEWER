@@ -9,6 +9,9 @@ import os
 import interface
 import filebrowser
 import globals
+import main_dataframe
+import graphic
+import legend
 
 # Класс главного окна со своим конструктором
 class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
@@ -21,6 +24,8 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
 
         # коннект на нажатие кнопки Обновить
         self.pushButton.clicked.connect(self.on_button_obnovit)
+        # коннект на клик вкладки Графики
+        self.tabWidget.tabBarClicked.connect(self.on_tab_click)
 
         # формируем скролэрию с ф-ией Drags&Drop в разделе Активные архивы
         self.scr_area = SubScrollAr(self)                       # создаём объект скролэрии
@@ -42,10 +47,20 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.dummy_widget2 = SubWidget2(self, self)              # вспомогательный виджет внутри lay_2
         self.lay_b.addWidget(self.dummy_widget2)                 # добавляем dummy_widget в lay_2
 
-    # метод для коннекта на нажатие кнопки "Обновить"
+    # метод коннекта на нажатие кнопки "Обновить"
     def on_button_obnovit(self):
         self.fb = filebrowser.FileBrowser(self) # объект файл-браузера
         self.fb.show()
+
+    # метод коннекта на нажатие вкладки "Графики"
+    def on_tab_click(self, index):
+        if index == 2:
+            # синтезируем главную датафрейм
+            main_df = main_dataframe.MainDataframe(self)
+            # строим графики и легенду на вкладке Графики
+            self.graphic = graphic.Graphic(self)    # создаём объект класса Graphic
+            # строим легенду
+            self.legend = legend.Legend(self, self.graphic)
 
     # переопределим метод событий mainwindow с целью определения его размеров
     # и регулирования высоты виджета с легендой
@@ -206,7 +221,11 @@ class SubWidget2(QWidget):
         self.label2.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
         self.label2.setMinimumHeight(35)
         self.label2.setStyleSheet("background-color: rgb(134, 182, 255)")
-        self.label2.setText('[' + globals.archname_archpath[0] +']' + e.mimeData().text())
+        # почему-то в процессе переноса чарез mime добавляются два пробела впереди
+        # нижеследующие 2 строчки удаляют эти 2 пробела
+        tmp_text = e.mimeData().text()
+        new_text = tmp_text.replace(' ', '', 2)
+        self.label2.setText('['+ globals.archname_archpath[0] +']' + ' *' + new_text)
         self.mainwind.lay_b_1.addWidget(self.label2)
 
 
