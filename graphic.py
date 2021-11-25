@@ -23,23 +23,27 @@ class MplCanvas(FigureCanvas):
         
 
 class Graphic(QWidget):
-    def __init__(self, mainwindow, datasource, parent=None):# конструктор класса Grafic
+    def __init__(self, mainwindow, parent=None):# конструктор класса Grafic
         QWidget.__init__(self, parent=parent)   # конструктор родительского класса
 
         self.mainwind = mainwindow
-        # self.data = datasource.data
         self.data = globals.main_df
-        print(self.data)
-        self.column_list = [1]      # список колонок, по которым графики строить
+        # print(self.data)
         self.colors_list = []           # список для хранения кодов цветов линий легенды
 
         # Создание объекта графика как объекта пользовательского класса MplCanvas
         self.main_graph = MplCanvas()
         self.col_names = self.data.columns.tolist()
-        for i in self.column_list:
-            self.y = self.data[self.col_names[i]]
-            x = list(range(len(self.y)))
+        self.col_names.pop(0)
+
+        x = range(len(self.data))   # получаем ось Х
+        for i in self.col_names:
+            print('i:', i)
+            self.y = self.data[i]   # получаем значения для Y
+            print('x:\n', x)
+            print('self.y:\n', self.y)
             self.main_graph.axes.plot(x, self.y, label = 'dummy_text')
+
         # чтобы графики начинались от оси х
         self.main_graph.axes.set_xlim(xmin = x[0], xmax = x[(len(self.y) -1)])
         self.main_graph.axes.grid() # включаем сетку

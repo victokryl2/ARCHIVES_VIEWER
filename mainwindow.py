@@ -5,12 +5,13 @@ from PyQt5.QtGui import QDrag
 from PyQt5.QtWidgets import QLabel, QPushButton, QScrollArea, QSizePolicy, QVBoxLayout, QWidget
 import pandas as pd
 import os
-import sys
 
 import interface
 import filebrowser
 import globals
 import main_dataframe
+import graphic
+import legend
 
 # Класс главного окна со своим конструктором
 class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
@@ -54,7 +55,12 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
     # метод коннекта на нажатие вкладки "Графики"
     def on_tab_click(self, index):
         if index == 2:
+            # синтезируем главную датафрейм
             main_df = main_dataframe.MainDataframe(self)
+            # строим графики и легенду на вкладке Графики
+            self.graphic = graphic.Graphic(self)    # создаём объект класса Graphic
+            # строим легенду
+            # self.legend = legend.Legend(self, self.graphic)
 
     # переопределим метод событий mainwindow с целью определения его размеров
     # и регулирования высоты виджета с легендой
