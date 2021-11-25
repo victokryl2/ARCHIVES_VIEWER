@@ -73,8 +73,7 @@ class Legend(QWidget):
         # Внимание! Есть механизм регулирования высоты виджета от кол-ва строк легенды.
         # Это переопределяемый метод, находящийся в mainwindow.py.
         self.mainwind.widget_6.setLayout(self.grid)
-
-        self.w_edjustment()     
+        self.w_edjustment()  # регулируем высоту легенды   
 
 
     #################################################################################################
@@ -109,10 +108,9 @@ class Legend(QWidget):
     def get_lines_names(self):
         # Создание списка названий колонок (будущие названия графиков в легенде)
         actual_names = []    # список актуальных названий линий легенды
-        names_list_all = self.graphic.data.columns.tolist() # список всех названий
-        for i in self.graphic.column_list:
+        for i in self.graphic.col_names:
             label = QLabel()
             label.setFont(QtGui.QFont('Arial', 12))
-            label.setText(names_list_all[i])
+            label.setText(i)
             actual_names.append(label)
         return actual_names

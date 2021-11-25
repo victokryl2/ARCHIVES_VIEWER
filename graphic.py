@@ -1,5 +1,3 @@
-import matplotlib.pyplot as plt
-# plt.use('Qt5Agg')
 
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QWidget

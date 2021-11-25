@@ -60,7 +60,7 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
             # строим графики и легенду на вкладке Графики
             self.graphic = graphic.Graphic(self)    # создаём объект класса Graphic
             # строим легенду
-            # self.legend = legend.Legend(self, self.graphic)
+            self.legend = legend.Legend(self, self.graphic)
 
     # переопределим метод событий mainwindow с целью определения его размеров
     # и регулирования высоты виджета с легендой
