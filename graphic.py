@@ -28,7 +28,6 @@ class Graphic(QWidget):
 
         self.mainwind = mainwindow
         self.data = globals.main_df
-        # print(self.data)
         self.colors_list = []           # список для хранения кодов цветов линий легенды
 
         # Создание объекта графика как объекта пользовательского класса MplCanvas
@@ -38,14 +37,11 @@ class Graphic(QWidget):
 
         x = range(len(self.data))   # получаем ось Х
         for i in self.col_names:
-            print('i:', i)
-            self.y = self.data[i]   # получаем значения для Y
-            print('x:\n', x)
-            print('self.y:\n', self.y)
-            self.main_graph.axes.plot(x, self.y, label = 'dummy_text')
+            y = self.data[i]   # получаем значения для Y
+            self.main_graph.axes.plot(x, y, label = 'dummy_text')
 
         # чтобы графики начинались от оси х
-        self.main_graph.axes.set_xlim(xmin = x[0], xmax = x[(len(self.y) -1)])
+        self.main_graph.axes.set_xlim(xmin = x[0], xmax = x[(len(y) -1)])
         self.main_graph.axes.grid() # включаем сетку
 
         #############  ПОЛУЧЕНИЕ СПИСКА ЦВЕТОВ ЛЕГЕНДЫ В ФОРМАТЕ RGB ##################################
