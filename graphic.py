@@ -1,5 +1,3 @@
-import matplotlib
-matplotlib.use('Qt5Agg')
 
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QWidget
@@ -7,34 +5,42 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5 import NavigationToolbar2QT as NavigationToolbar
 
+import globals
+
 
 # Пользовательский класс, наследованный от FigureCanvas.
 # В нём собраны все методы, необходимые для рисования графика.
 # Позже график можно создавать просто создав объект этого класса.
 class MplCanvas(FigureCanvas):
     def __init__(self):
-        fig = Figure()                          # создание объекта Figure
-        self.axes = fig.add_subplot()           # создание самого графика
-        super(MplCanvas, self).__init__(fig)    # создание объекта холста
+        self.fig = Figure()                          # создание объекта Figure
+        # регулируем границы зоны subplot (максимально растягиваем график на виджете)
+        self.fig.subplots_adjust(left=0.04, right=0.99, top=0.99, bottom=0.1)
+        self.axes = self.fig.add_subplot()           # создание самого графика
+        super(MplCanvas, self).__init__(self.fig)    # создание объекта холста
+        
 
 class Graphic(QWidget):
-    def __init__(self, mainwindow, datasource, parent=None):# конструктор класса Grafic
+    def __init__(self, mainwindow, parent=None):# конструктор класса Grafic
         QWidget.__init__(self, parent=parent)   # конструктор родительского класса
 
         self.mainwind = mainwindow
-        self.data = datasource.data
-        self.column_list = [4, 6, 8, 12, 15]      # список колонок, по которым графики строить
+        self.data = globals.main_df
         self.colors_list = []           # список для хранения кодов цветов линий легенды
 
         # Создание объекта графика как объекта пользовательского класса MplCanvas
         self.main_graph = MplCanvas()
         self.col_names = self.data.columns.tolist()
-        for i in self.column_list:
-            self.y = self.data[self.col_names[i]]
-            x = list(range(len(self.y)))
-            self.main_graph.axes.plot(x, self.y, label = 'dummy_text')
+        self.col_names.pop(0)
 
-        self.main_graph.axes.grid()
+        x = range(len(self.data))   # получаем ось Х
+        for i in self.col_names:
+            y = self.data[i]   # получаем значения для Y
+            self.main_graph.axes.plot(x, y, label = 'dummy_text')
+
+        # чтобы графики начинались от оси х
+        self.main_graph.axes.set_xlim(xmin = x[0], xmax = x[(len(y) -1)])
+        self.main_graph.axes.grid() # включаем сетку
 
         #############  ПОЛУЧЕНИЕ СПИСКА ЦВЕТОВ ЛЕГЕНДЫ В ФОРМАТЕ RGB ##################################
         # Этот список будет использоваться для построения пользовательской легенды в модуле legend.py
