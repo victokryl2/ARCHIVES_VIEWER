@@ -21,6 +21,7 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.setWindowTitle("Просмоторщик архивов данных")
         
         self.w_height = 0   # высота главного виджета (от него считается высота легенды)
+        self.par_list = []  # пустой список для перечня параметров
 
         # коннект на нажатие кнопки Обновить
         self.pushButton.clicked.connect(self.on_button_obnovit)
@@ -56,7 +57,13 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
 
     # метод коннекта на нажатие кнопки "Загрузить"
     def on_button_zagruzit(self):
-        print('dfscxfdxfgvdsfbvfd')
+        num = self.lay_b_1.count()  # получаем кол-во параметров в lay_b_1
+        print(num)
+        for i in range(num):
+            obj = self.lay_b_1.itemAt(i).widget()
+            self.par_list.append(obj.text())
+            print('par_list:', self.par_list)
+
 
     # метод коннекта на нажатие вкладки "Графики"
     def on_tab_click(self, index):
