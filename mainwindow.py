@@ -57,12 +57,35 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
 
     # метод коннекта на нажатие кнопки "Загрузить"
     def on_button_zagruzit(self):
-        num = self.lay_b_1.count()  # получаем кол-во параметров в lay_b_1
-        print(num)
+        num = self.lay_b_1.count()          # получаем кол-во параметров в lay_b_1
+        v_cont = QtWidgets.QVBoxLayout()    # создаём V-контейнер
+        # формируем список параметров из раздела Активные параметры
+        # и добавляем каждый параметр в V-контейнер
         for i in range(num):
+            # формируем первый лейбел "Список активных параметров:"
+            if i == 0:
+                lbl_topic = QtWidgets.QLabel()
+                # задаём размер шрифта
+                font = lbl_topic.font()
+                font.setPointSize(14)
+                lbl_topic.setFont(font)
+                lbl_topic.setText('Список активных параметров:')
+                v_cont.addWidget(lbl_topic)
+            # далее итерируемся и добавляем параметры в список
             obj = self.lay_b_1.itemAt(i).widget()
-            self.par_list.append(obj.text())
-            print('par_list:', self.par_list)
+            tmp_txt = obj.text()                # извлекаем текст из объекта
+            self.par_list.append(tmp_txt)       # добавляем текст лейбла в список
+            lbl = QtWidgets.QLabel()
+            # задаём размер шрифта
+            font = lbl.font()
+            font.setPointSize(12)
+            lbl.setFont(font)
+            # помещаем текст на лейбл и потом помещаем лейбл в v-контейнер
+            lbl.setText(tmp_txt)
+            v_cont.addWidget(lbl)
+        self.widget_6.setLayout(v_cont)      # устанавливаем контейнер на виджет
+
+
 
 
     # метод коннекта на нажатие вкладки "Графики"
