@@ -57,20 +57,10 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
 
     # метод коннекта на нажатие кнопки "Загрузить"
     def on_button_zagruzit(self):
-        num = self.lay_b_1.count()          # получаем кол-во параметров в lay_b_1
+        num = self.lay_b_1.count()              # получаем кол-во параметров в lay_b_1
+        self.clear_grid(self.grid_for_legend)   # очищаем grid-контейнер от предыдущих значений
         # формируем список параметров из раздела Активные параметры
         # и добавляем каждый параметр в grid-контейнер легенды
-        # self.clearLayout(self.grid_for_legend)   # очищаем grid-контейнер от старых значений
-
-        while self.grid_for_legend.count():
-            item = self.grid_for_legend.takeAt(0)
-            widget = item.widget()
-            if widget is not None:
-                widget.deleteLater()
-
-
-
-
         for i in range(num):
             # формируем первый лейбел "Список активных параметров:"
             if i == 0:
@@ -79,7 +69,7 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
                 font = lbl_topic.font()
                 font.setPointSize(14)
                 lbl_topic.setFont(font)
-                lbl_topic.setText('Список активных параметров:')
+                lbl_topic.setText('Список активных параметров:\n')
                 self.grid_for_legend.addWidget(lbl_topic, i, 0)
             # далее итерируемся и добавляем параметры в список
             obj = self.lay_b_1.itemAt(i).widget()
@@ -94,9 +84,6 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
             lbl.setText(tmp_txt)
             self.grid_for_legend.addWidget(lbl, i+1, 0)
 
-
-# self.mainwind.grid_for_legend.addWidget(self.graph_names[i], i, 3)
-
     # метод коннекта на нажатие вкладки "Графики"
     def on_tab_click(self, index):
         pass
@@ -107,6 +94,17 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         #     self.graphic = graphic.Graphic(self)    # создаём объект класса Graphic
         #     # строим легенду
         #     self.legend = legend.Legend(self, self.graphic)
+
+    # метод, очищающий grid-лейоут от всего содержимого
+    def clear_grid(self, grid):
+        if grid is not None:
+            while grid.count():
+                item = grid.takeAt(0)
+                widget = item.widget()
+                if widget is not None:
+                    widget.deleteLater()
+                else:
+                    self.clearLayout(item.grid())
 
     # переопределим метод событий mainwindow с целью определения его размеров
     # и регулирования высоты виджета с легендой
