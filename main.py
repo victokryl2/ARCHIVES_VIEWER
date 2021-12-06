@@ -5,7 +5,7 @@ import mainwindow
 
 def main():
     app = QtWidgets.QApplication(sys.argv)  # Новый экземпляр QApplication
-    window = mainwindow.MainWindow()        # Создаём объект класса ExampleApp
+    window = mainwindow.MainWindow()        # Создаём объект класса MainWindow
     window.show()                           # показываем окно
     app.exec_()                             # запускаем приложение
     

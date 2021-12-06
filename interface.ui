@@ -27,7 +27,7 @@
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
-        <string>АКТИВНЫЕ ДАННЫЕ</string>
+        <string>Активные данные</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout">
         <property name="spacing">
@@ -104,7 +104,7 @@
 color: rgb(231, 231, 231);</string>
                </property>
                <property name="text">
-                <string>СПИСОК АРХИВОВ</string>
+                <string>Список архивов</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
@@ -216,7 +216,7 @@ color: rgb(231, 231, 231);</string>
 color: rgb(231, 231, 231);</string>
                </property>
                <property name="text">
-                <string>АКТИВН.АРХИВЫ</string>
+                <string>Активн. архивы</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
@@ -253,7 +253,7 @@ color: rgb(231, 231, 231);</string>
 color: rgb(231, 231, 231);</string>
                </property>
                <property name="text">
-                <string>ПАРАМЕТРЫ АРХИВА</string>
+                <string>Параметры архива</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
@@ -270,7 +270,7 @@ color: rgb(231, 231, 231);</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>249</width>
+                  <width>255</width>
                   <height>408</height>
                  </rect>
                 </property>
@@ -312,10 +312,28 @@ color: rgb(231, 231, 231);</string>
 color: rgb(231, 231, 231);</string>
                </property>
                <property name="text">
-                <string>АКТИВН.ПАРАМ-РЫ</string>
+                <string>Активн. параметры</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_2">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(94, 128, 179);
+color: rgb(231, 231, 231);</string>
+               </property>
+               <property name="text">
+                <string>Загрузить</string>
                </property>
               </widget>
              </item>
@@ -328,12 +346,12 @@ color: rgb(231, 231, 231);</string>
       </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
-        <string>ПОЛЬЗ. НАБОРЫ</string>
+        <string>Польз.наборы</string>
        </attribute>
       </widget>
       <widget class="QWidget" name="tab_3">
        <attribute name="title">
-        <string>ГРАФИКИ</string>
+        <string>Графики</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_9">
         <property name="spacing">
@@ -408,7 +426,7 @@ color: rgb(231, 231, 231);</string>
            </widget>
           </item>
           <item>
-           <widget class="QWidget" name="widget_7" native="true">
+           <widget class="QWidget" name="widget_8" native="true">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -420,13 +438,46 @@ color: rgb(231, 231, 231);</string>
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QWidget" name="widget_7" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 255, 255);</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_12">
+             <item>
+              <widget class="QPushButton" name="pushButton_3">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(94, 128, 179);
+color: rgb(231, 231, 231);</string>
+               </property>
+               <property name="text">
+                <string>Построить</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
          </layout>
         </item>
        </layout>
       </widget>
       <widget class="QWidget" name="tab_4">
        <attribute name="title">
-        <string>АНАЛИТИКА</string>
+        <string>Аналитика</string>
        </attribute>
       </widget>
      </widget>

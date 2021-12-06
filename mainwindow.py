@@ -39,7 +39,7 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
 
         # формируем скролэрию с ф-ией Drags&Drop в разделе Активные параметры
         self.scr_area2 = SubScrollAr2(self)                      # создаём объект скролэрии
-        self.verticalLayout_5.addWidget(self.scr_area2)          # помещаем скролэрию в layout виджета верхнего уровня
+        self.verticalLayout_5.insertWidget(1, self.scr_area2)    # помещаем скролэрию в layout виджета верхнего уровня
         self.lay_b = QVBoxLayout()                               # lay внутрь скролэрии
         self.scr_area2.setLayout(self.lay_b)                     # устанавливаем lay внутрь скролэрии
         self.lay_b_1 = QVBoxLayout()                             # lay_1 внутрь lay
@@ -170,6 +170,8 @@ class SubWidget(QWidget):
                 obj_path = os.path.join(dir_path, objects_list[i])   # соединяем путь к папке объекта с именем объекта
                 dataframe = pd.read_csv(obj_path)                    # читаем данные из csv в dataframe
                 names = dataframe.columns.tolist()                   # получаем список имён колонок (список параметров)
+                names.pop(0)                                         # удаляем колонки с индексом и датой-временем
+                names.pop(0)
                 break
             else:
                 print('false')
@@ -200,7 +202,7 @@ class SubWidget(QWidget):
 # @brief  Класс объекта вспомогательного виджета для раздела Активные параметры
 # @detail Обладая политикой expanding объект этого класса, расширяясь в вертикальном направлении,
 # заставляет быть добавляемые объекты всегда вверху.
-# Этот класс SubWidget2 отличается от класса SubWidget тем, добавляет лейблы в
+# Этот класс SubWidget2 отличается от класса SubWidget тем, что добавляет лейблы в
 # @param  mainwindow - объект главного окна интерфейса
 # @retval None 
 class SubWidget2(QWidget):
