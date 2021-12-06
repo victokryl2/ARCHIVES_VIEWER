@@ -237,6 +237,8 @@ class Ui_MainWindow(object):
         self.widget_6.setMinimumSize(QtCore.QSize(200, 25))
         self.widget_6.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.widget_6.setObjectName("widget_6")
+        self.grid_for_legend = QtWidgets.QGridLayout(self.widget_6)
+        self.grid_for_legend.setObjectName("grid_for_legend")
         self.horizontalLayout_3.addWidget(self.widget_6)
         self.widget_8 = QtWidgets.QWidget(self.tab_3)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)

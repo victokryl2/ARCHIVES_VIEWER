@@ -91,13 +91,13 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
     # метод коннекта на нажатие вкладки "Графики"
     def on_tab_click(self, index):
         pass
-        # if index == 2:
-        #     # синтезируем главную датафрейм
-        #     main_df = main_dataframe.MainDataframe(self)
-        #     # строим графики и легенду на вкладке Графики
-        #     self.graphic = graphic.Graphic(self)    # создаём объект класса Graphic
-        #     # строим легенду
-        #     self.legend = legend.Legend(self, self.graphic)
+        if index == 2:
+            # синтезируем главную датафрейм
+            main_df = main_dataframe.MainDataframe(self)
+            # строим графики и легенду на вкладке Графики
+            self.graphic = graphic.Graphic(self)    # создаём объект класса Graphic
+            # строим легенду
+            self.legend = legend.Legend(self, self.graphic)
 
     # переопределим метод событий mainwindow с целью определения его размеров
     # и регулирования высоты виджета с легендой
