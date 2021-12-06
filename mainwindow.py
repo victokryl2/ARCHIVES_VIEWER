@@ -39,7 +39,7 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
 
         # формируем скролэрию с ф-ией Drags&Drop в разделе Активные параметры
         self.scr_area2 = SubScrollAr2(self)                      # создаём объект скролэрии
-        self.verticalLayout_5.addWidget(self.scr_area2)          # помещаем скролэрию в layout виджета верхнего уровня
+        self.verticalLayout_5.insertWidget(1, self.scr_area2)    # помещаем скролэрию в layout виджета верхнего уровня
         self.lay_b = QVBoxLayout()                               # lay внутрь скролэрии
         self.scr_area2.setLayout(self.lay_b)                     # устанавливаем lay внутрь скролэрии
         self.lay_b_1 = QVBoxLayout()                             # lay_1 внутрь lay

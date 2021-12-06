@@ -23,7 +23,8 @@ class MainDataframe():
         else:
             print('no objects')
 
-        globals.main_df = self.cut_sub_main_df(self.sub_main_df)
+        # globals.main_df = self.cut_sub_main_df(self.sub_main_df)  # удаляем начало и конец DF, не содержащие данных
+        globals.main_df = self.sub_main_df
         # print(globals.main_df)
 
     
