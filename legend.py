@@ -39,15 +39,14 @@ class Legend(QWidget):
         
         # создаём массив объектов класса линий Lines()
         # во время итерации каждый раз передаём туда очередной
-        # цвет из списка цветов из модуля grafic
+        # цвет из списка цветов из модуля graphic
         for i in range(len(self.graphic.colors_list)):
             self.lines_list.append(Lines(self.graphic.colors_list[i]))
 
         # создаём QGridLayout (для размещения потом на нижнем виджете)
-        self.grid = QGridLayout()               # объект контейнера
-        self.grid.setColumnMinimumWidth(0, 50)  # минимальная ширина 0-го столбца
-        self.grid.setColumnStretch(2, 1)        # растяжение второго столбца с коэффициентом 1
-        self.grid.setColumnStretch(3, 10)       # растяжение третьего столбца с коэффициентом 10
+        self.mainwind.grid_for_legend.setColumnMinimumWidth(0, 50)  # минимальная ширина 0-го столбца
+        self.mainwind.grid_for_legend.setColumnStretch(2, 1)        # растяжение второго столбца с коэффициентом 1
+        self.mainwind.grid_for_legend.setColumnStretch(3, 10)       # растяжение третьего столбца с коэффициентом 10
 
         ###############################################################################################
         # формируем рандомный список объектов чисел курсора
@@ -65,14 +64,13 @@ class Legend(QWidget):
 
         # добавляем туда новые объекты
         for i in range(len(self.lines_list)):
-            self.grid.addWidget(self.lines_list[i], i, 0)
-            self.grid.addWidget(self.vals_list[i], i, 2)   
-            self.grid.addWidget(self.graph_names[i], i, 3)
+            self.mainwind.grid_for_legend.addWidget(self.lines_list[i], i, 0)
+            self.mainwind.grid_for_legend.addWidget(self.vals_list[i], i, 2)   
+            self.mainwind.grid_for_legend.addWidget(self.graph_names[i], i, 3)
         
-        # Установка V-контейнера на виджет.
+        # Установка grid-контейнера на виджет.
         # Внимание! Есть механизм регулирования высоты виджета от кол-ва строк легенды.
         # Это переопределяемый метод, находящийся в mainwindow.py.
-        self.mainwind.widget_6.setLayout(self.grid)
         self.w_edjustment()  # регулируем высоту легенды   
 
 
