@@ -43,7 +43,7 @@ class Legend(QWidget):
         for i in range(len(self.graphic.colors_list)):
             self.lines_list.append(Lines(self.graphic.colors_list[i]))
 
-        # создаём QGridLayout (для размещения потом на нижнем виджете)
+        # конфигурим grid на нижнем виджете
         self.mainwind.grid_for_legend.setColumnMinimumWidth(0, 50)  # минимальная ширина 0-го столбца
         self.mainwind.grid_for_legend.setColumnStretch(2, 1)        # растяжение второго столбца с коэффициентом 1
         self.mainwind.grid_for_legend.setColumnStretch(3, 10)       # растяжение третьего столбца с коэффициентом 10

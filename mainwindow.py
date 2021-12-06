@@ -29,6 +29,8 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.pushButton_2.clicked.connect(self.on_button_zagruzit)
         # коннект на клик вкладки Графики
         self.tabWidget.tabBarClicked.connect(self.on_tab_click)
+        # коннект на нажатие кнопки Построить
+        self.pushButton_3.clicked.connect(self.on_tab_build)
 
         # формируем скролэрию с ф-ией Drags&Drop в разделе Активные архивы
         self.scr_area = SubScrollAr(self)                       # создаём объект скролэрии
@@ -88,12 +90,18 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
     def on_tab_click(self, index):
         pass
         # if index == 2:
-        #     # синтезируем главную датафрейм
-        #     main_df = main_dataframe.MainDataframe(self)
-        #     # строим графики и легенду на вкладке Графики
-        #     self.graphic = graphic.Graphic(self)    # создаём объект класса Graphic
-        #     # строим легенду
-        #     self.legend = legend.Legend(self, self.graphic)
+        #     здесь код что делать по клику на вкладку под номером 2
+
+    # метод коннекта на нажатие кнопки Построить на вкладке Графики
+    def on_tab_build(self, index):
+
+        self.clear_grid(self.grid_for_legend)
+        # синтезируем главную датафрейм
+        main_df = main_dataframe.MainDataframe(self)
+        # строим графики и легенду на вкладке Графики
+        self.graphic = graphic.Graphic(self)    # создаём объект класса Graphic
+        # строим легенду
+        self.legend = legend.Legend(self, self.graphic)
 
     # метод, очищающий grid-лейоут от всего содержимого
     def clear_grid(self, grid):

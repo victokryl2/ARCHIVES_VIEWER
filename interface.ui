@@ -380,6 +380,11 @@ color: rgb(231, 231, 231);</string>
           <property name="styleSheet">
            <string notr="true"/>
           </property>
+          <layout class="QVBoxLayout" name="verticalLayout_14">
+           <item>
+            <layout class="QVBoxLayout" name="layout_for_graph"/>
+           </item>
+          </layout>
          </widget>
         </item>
         <item>
