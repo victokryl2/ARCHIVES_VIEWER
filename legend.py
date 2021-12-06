@@ -69,7 +69,7 @@ class Legend(QWidget):
             self.grid.addWidget(self.vals_list[i], i, 2)   
             self.grid.addWidget(self.graph_names[i], i, 3)
         
-        # Установка V-контейнера на виджет.
+        # Установка grid-контейнера на виджет.
         # Внимание! Есть механизм регулирования высоты виджета от кол-ва строк легенды.
         # Это переопределяемый метод, находящийся в mainwindow.py.
         self.mainwind.widget_6.setLayout(self.grid)

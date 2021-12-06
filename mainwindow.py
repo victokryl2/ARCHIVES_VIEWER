@@ -24,6 +24,8 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
 
         # коннект на нажатие кнопки Обновить
         self.pushButton.clicked.connect(self.on_button_obnovit)
+        # коннект на нажатие кнопки Загрузить
+        self.pushButton_2.clicked.connect(self.on_button_zagruzit)
         # коннект на клик вкладки Графики
         self.tabWidget.tabBarClicked.connect(self.on_tab_click)
 
@@ -52,15 +54,20 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.fb = filebrowser.FileBrowser(self) # объект файл-браузера
         self.fb.show()
 
+    # метод коннекта на нажатие кнопки "Загрузить"
+    def on_button_zagruzit(self):
+        print('dfscxfdxfgvdsfbvfd')
+
     # метод коннекта на нажатие вкладки "Графики"
     def on_tab_click(self, index):
-        if index == 2:
-            # синтезируем главную датафрейм
-            main_df = main_dataframe.MainDataframe(self)
-            # строим графики и легенду на вкладке Графики
-            self.graphic = graphic.Graphic(self)    # создаём объект класса Graphic
-            # строим легенду
-            self.legend = legend.Legend(self, self.graphic)
+        pass
+        # if index == 2:
+        #     # синтезируем главную датафрейм
+        #     main_df = main_dataframe.MainDataframe(self)
+        #     # строим графики и легенду на вкладке Графики
+        #     self.graphic = graphic.Graphic(self)    # создаём объект класса Graphic
+        #     # строим легенду
+        #     self.legend = legend.Legend(self, self.graphic)
 
     # переопределим метод событий mainwindow с целью определения его размеров
     # и регулирования высоты виджета с легендой
@@ -202,7 +209,7 @@ class SubWidget(QWidget):
 # @brief  Класс объекта вспомогательного виджета для раздела Активные параметры
 # @detail Обладая политикой expanding объект этого класса, расширяясь в вертикальном направлении,
 # заставляет быть добавляемые объекты всегда вверху.
-# Этот класс SubWidget2 отличается от класса SubWidget тем, что добавляет лейблы в
+# Этот класс SubWidget2 отличается от класса SubWidget тем, что добавляет лейблы в контейнер, а не кнопки
 # @param  mainwindow - объект главного окна интерфейса
 # @retval None 
 class SubWidget2(QWidget):
@@ -228,7 +235,7 @@ class SubWidget2(QWidget):
         tmp_text = e.mimeData().text()
         new_text = tmp_text.replace(' ', '', 2)
         self.label2.setText('['+ globals.archname_archpath[0] +']' + ' *' + new_text)
-        self.mainwind.lay_b_1.addWidget(self.label2)
+        self.mainwind.lay_b_1.addWidget(self.label2)    # lay_b_1 - это V-layout
 
 
 # @brief  Класс создания объектов label с ф-ией Drags&Drop
