@@ -58,9 +58,19 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
     # метод коннекта на нажатие кнопки "Загрузить"
     def on_button_zagruzit(self):
         num = self.lay_b_1.count()          # получаем кол-во параметров в lay_b_1
-        v_cont = QtWidgets.QVBoxLayout()    # создаём V-контейнер
         # формируем список параметров из раздела Активные параметры
-        # и добавляем каждый параметр в V-контейнер
+        # и добавляем каждый параметр в grid-контейнер легенды
+        # self.clearLayout(self.grid_for_legend)   # очищаем grid-контейнер от старых значений
+
+        while self.grid_for_legend.count():
+            item = self.grid_for_legend.takeAt(0)
+            widget = item.widget()
+            if widget is not None:
+                widget.deleteLater()
+
+
+
+
         for i in range(num):
             # формируем первый лейбел "Список активных параметров:"
             if i == 0:
@@ -70,7 +80,7 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
                 font.setPointSize(14)
                 lbl_topic.setFont(font)
                 lbl_topic.setText('Список активных параметров:')
-                v_cont.addWidget(lbl_topic)
+                self.grid_for_legend.addWidget(lbl_topic, i, 0)
             # далее итерируемся и добавляем параметры в список
             obj = self.lay_b_1.itemAt(i).widget()
             tmp_txt = obj.text()                # извлекаем текст из объекта
@@ -82,22 +92,21 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
             lbl.setFont(font)
             # помещаем текст на лейбл и потом помещаем лейбл в v-контейнер
             lbl.setText(tmp_txt)
-            v_cont.addWidget(lbl)
-        self.widget_6.setLayout(v_cont)      # устанавливаем контейнер на виджет
+            self.grid_for_legend.addWidget(lbl, i+1, 0)
 
 
-
+# self.mainwind.grid_for_legend.addWidget(self.graph_names[i], i, 3)
 
     # метод коннекта на нажатие вкладки "Графики"
     def on_tab_click(self, index):
         pass
-        if index == 2:
-            # синтезируем главную датафрейм
-            main_df = main_dataframe.MainDataframe(self)
-            # строим графики и легенду на вкладке Графики
-            self.graphic = graphic.Graphic(self)    # создаём объект класса Graphic
-            # строим легенду
-            self.legend = legend.Legend(self, self.graphic)
+        # if index == 2:
+        #     # синтезируем главную датафрейм
+        #     main_df = main_dataframe.MainDataframe(self)
+        #     # строим графики и легенду на вкладке Графики
+        #     self.graphic = graphic.Graphic(self)    # создаём объект класса Graphic
+        #     # строим легенду
+        #     self.legend = legend.Legend(self, self.graphic)
 
     # переопределим метод событий mainwindow с целью определения его размеров
     # и регулирования высоты виджета с легендой
