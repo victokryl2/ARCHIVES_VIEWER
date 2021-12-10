@@ -57,9 +57,6 @@ class Graphic(QWidget):
 
         # создание объекта панели навигации на холсте self.main_graph
         self.toolbar = NavigationToolbar(self.main_graph, self)
-
-        self.mainwind.clear_grid(self.mainwind.layout_for_graph)
-
         # Помещение панели навигации и фигуры в контейнер layout_for_graph.
         # Порядок важен. Если сначала добавить main_graph, то панель навигации окажется внизу.
         self.mainwind.layout_for_graph.addWidget(self.toolbar)

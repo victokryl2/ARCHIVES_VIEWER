@@ -60,6 +60,8 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
     # метод коннекта на нажатие кнопки "Загрузить"
     def on_button_zagruzit(self):
         num = self.lay_b_1.count()              # получаем кол-во параметров в lay_b_1
+        # очищаем лейоут от предыдущего графика
+        self.clear_grid(self.layout_for_graph)
         self.clear_grid(self.grid_for_legend)   # очищаем grid-контейнер от предыдущих значений
         # формируем список параметров из раздела Активные параметры
         # и добавляем каждый параметр в grid-контейнер легенды
@@ -94,7 +96,9 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
 
     # метод коннекта на нажатие кнопки Построить на вкладке Графики
     def on_tab_build(self, index):
-
+        # очищаем лейоут от предыдущего графика
+        self.clear_grid(self.layout_for_graph)
+        # очищаем нижний виджет от предыдущих значений
         self.clear_grid(self.grid_for_legend)
         # синтезируем главную датафрейм
         main_df = main_dataframe.MainDataframe(self)
