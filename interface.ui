@@ -380,6 +380,11 @@ color: rgb(231, 231, 231);</string>
           <property name="styleSheet">
            <string notr="true"/>
           </property>
+          <layout class="QVBoxLayout" name="verticalLayout_14">
+           <item>
+            <layout class="QVBoxLayout" name="layout_for_graph"/>
+           </item>
+          </layout>
          </widget>
         </item>
         <item>
@@ -423,6 +428,7 @@ color: rgb(231, 231, 231);</string>
             <property name="styleSheet">
              <string notr="true">background-color: rgb(255, 255, 255);</string>
             </property>
+            <layout class="QGridLayout" name="grid_for_legend"/>
            </widget>
           </item>
           <item>
@@ -464,11 +470,24 @@ color: rgb(231, 231, 231);</string>
 color: rgb(231, 231, 231);</string>
                </property>
                <property name="text">
-                <string>Построить</string>
+                <string>  Построить  </string>
                </property>
               </widget>
              </item>
             </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="widget_9" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 255, 255);</string>
+            </property>
            </widget>
           </item>
          </layout>

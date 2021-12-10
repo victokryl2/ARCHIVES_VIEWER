@@ -21,11 +21,16 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.setWindowTitle("Просмоторщик архивов данных")
         
         self.w_height = 0   # высота главного виджета (от него считается высота легенды)
+        self.par_list = []  # пустой список для перечня параметров
 
         # коннект на нажатие кнопки Обновить
         self.pushButton.clicked.connect(self.on_button_obnovit)
+        # коннект на нажатие кнопки Загрузить
+        self.pushButton_2.clicked.connect(self.on_button_zagruzit)
         # коннект на клик вкладки Графики
         self.tabWidget.tabBarClicked.connect(self.on_tab_click)
+        # коннект на нажатие кнопки Построить
+        self.pushButton_3.clicked.connect(self.on_tab_build)
 
         # формируем скролэрию с ф-ией Drags&Drop в разделе Активные архивы
         self.scr_area = SubScrollAr(self)                       # создаём объект скролэрии
@@ -52,15 +57,63 @@ class MainWindow(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.fb = filebrowser.FileBrowser(self) # объект файл-браузера
         self.fb.show()
 
+    # метод коннекта на нажатие кнопки "Загрузить"
+    def on_button_zagruzit(self):
+        num = self.lay_b_1.count()              # получаем кол-во параметров в lay_b_1
+        self.clear_layout(self.layout_for_graph)  # очищаем лейоут от предыдущего графика
+        self.clear_layout(self.grid_for_legend)   # очищаем grid-контейнер от предыдущих значений
+        # формируем список параметров из раздела Активные параметры
+        # и добавляем каждый параметр в grid-контейнер легенды
+        for i in range(num):
+            # формируем первый лейбел "Список активных параметров:"
+            if i == 0:
+                lbl_topic = QtWidgets.QLabel()
+                # задаём размер шрифта
+                font = lbl_topic.font()
+                font.setPointSize(14)
+                lbl_topic.setFont(font)
+                lbl_topic.setText('Список активных параметров:\n')
+                self.grid_for_legend.addWidget(lbl_topic, i, 0)
+            # далее итерируемся и добавляем параметры в список
+            obj = self.lay_b_1.itemAt(i).widget()
+            tmp_txt = obj.text()                # извлекаем текст из объекта
+            self.par_list.append(tmp_txt)       # добавляем текст лейбла в список
+            lbl = QtWidgets.QLabel()
+            # задаём размер шрифта
+            font = lbl.font()
+            font.setPointSize(12)
+            lbl.setFont(font)
+            # помещаем текст на лейбл и потом помещаем лейбл в v-контейнер
+            lbl.setText(tmp_txt)
+            self.grid_for_legend.addWidget(lbl, i+1, 0)
+
     # метод коннекта на нажатие вкладки "Графики"
     def on_tab_click(self, index):
-        if index == 2:
-            # синтезируем главную датафрейм
-            main_df = main_dataframe.MainDataframe(self)
-            # строим графики и легенду на вкладке Графики
-            self.graphic = graphic.Graphic(self)    # создаём объект класса Graphic
-            # строим легенду
-            self.legend = legend.Legend(self, self.graphic)
+        pass
+        # if index == 2:
+        #     здесь код что делать по клику на вкладку под номером 2
+
+    # метод коннекта на нажатие кнопки Построить на вкладке Графики
+    def on_tab_build(self, index):
+        self.clear_layout(self.layout_for_graph)  # очищаем лейоут от предыдущего графика
+        self.clear_layout(self.grid_for_legend)   # очищаем grid-контейнер от предыдущих значений
+        # синтезируем главную датафрейм
+        main_df = main_dataframe.MainDataframe(self)
+        # строим графики и легенду на вкладке Графики
+        self.graphic = graphic.Graphic(self)    # создаём объект класса Graphic
+        # строим легенду
+        self.legend = legend.Legend(self, self.graphic)
+
+    # метод, очищающий grid-лейоут от всего содержимого
+    def clear_layout(self, grid):
+        if grid is not None:
+            while grid.count():
+                item = grid.takeAt(0)
+                widget = item.widget()
+                if widget is not None:
+                    widget.deleteLater()
+                else:
+                    self.clearLayout(item.grid())
 
     # переопределим метод событий mainwindow с целью определения его размеров
     # и регулирования высоты виджета с легендой
@@ -202,7 +255,7 @@ class SubWidget(QWidget):
 # @brief  Класс объекта вспомогательного виджета для раздела Активные параметры
 # @detail Обладая политикой expanding объект этого класса, расширяясь в вертикальном направлении,
 # заставляет быть добавляемые объекты всегда вверху.
-# Этот класс SubWidget2 отличается от класса SubWidget тем, что добавляет лейблы в
+# Этот класс SubWidget2 отличается от класса SubWidget тем, что добавляет лейблы в контейнер, а не кнопки
 # @param  mainwindow - объект главного окна интерфейса
 # @retval None 
 class SubWidget2(QWidget):
@@ -228,7 +281,7 @@ class SubWidget2(QWidget):
         tmp_text = e.mimeData().text()
         new_text = tmp_text.replace(' ', '', 2)
         self.label2.setText('['+ globals.archname_archpath[0] +']' + ' *' + new_text)
-        self.mainwind.lay_b_1.addWidget(self.label2)
+        self.mainwind.lay_b_1.addWidget(self.label2)    # lay_b_1 - это V-layout
 
 
 # @brief  Класс создания объектов label с ф-ией Drags&Drop

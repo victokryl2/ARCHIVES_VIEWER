@@ -57,15 +57,13 @@ class Graphic(QWidget):
 
         # создание объекта панели навигации на холсте self.main_graph
         self.toolbar = NavigationToolbar(self.main_graph, self)
-        # Cоздание вертикального контейнера VB-Layout и помещение туда панели навигации и фигуры.
+        # Помещение панели навигации и фигуры в контейнер layout_for_graph.
         # Порядок важен. Если сначала добавить main_graph, то панель навигации окажется внизу.
-        self.layout = QtWidgets.QVBoxLayout()
-        self.layout.addWidget(self.toolbar)
-        self.layout.addWidget(self.main_graph)
+        self.mainwind.layout_for_graph.addWidget(self.toolbar)
+        self.mainwind.layout_for_graph.addWidget(self.main_graph)
         
-        # установка контейнера Layout в нужный виджет
-        self.mainwind.widget_3.setLayout(self.layout)
 
+    # метод, формирующий код rgb из hex
     def hex_to_rgb(self, hex):
         rgb = []
         for i in (0, 2, 4):
